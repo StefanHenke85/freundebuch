@@ -112,6 +112,58 @@
 
 .lp-hero-cta:active { transform: translateY(0); }
 
+/* Top-Leiste im Hero */
+.lp-hero-topbar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  z-index: 2;
+  background: linear-gradient(to bottom, rgba(26,13,0,0.7) 0%, transparent 100%);
+}
+
+.lp-hero-topbar-logo {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.3rem;
+  color: #f5efe6;
+}
+
+.lp-hero-topbar-rechts {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+.lp-topbar-btn {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.82rem;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.15s;
+  border: none;
+}
+
+.lp-topbar-btn-outline {
+  background: transparent;
+  border: 1px solid rgba(196,168,130,0.4);
+  color: #c4a882;
+}
+
+.lp-topbar-btn-outline:hover { border-color: #c4a882; color: #f5efe6; }
+
+.lp-topbar-btn-solid {
+  background: linear-gradient(135deg, #8b5e3c, #c4843e);
+  color: #fff;
+  font-weight: 700;
+  box-shadow: 0 3px 10px rgba(139,94,60,0.4);
+}
+
+.lp-topbar-btn-solid:hover { opacity: 0.88; }
+
 /* Wer-macht-was */
 .lp-hero-wer {
   display: flex;

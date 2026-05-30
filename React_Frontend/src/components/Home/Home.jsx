@@ -15,7 +15,7 @@ const ANLAESSE = [
 ];
 
 export default function Home() {
-  const { token } = useAuth();
+  const { token, logout } = useAuth();
   const navigate = useNavigate();
   const [phase, setPhase] = useState('hero');
   const [event, setEvent] = useState(null);
@@ -66,6 +66,24 @@ export default function Home() {
           <div className="lp-hero-bg">
             <img src="/img/BraunesBuch.png" alt="" className="lp-hero-buch" />
             <div className="lp-hero-overlay" />
+          </div>
+
+          {/* Top-Leiste */}
+          <div className="lp-hero-topbar">
+            <span className="lp-hero-topbar-logo">📖 Freundebuch</span>
+            <div className="lp-hero-topbar-rechts">
+              {token ? (
+                <>
+                  <a href="/dashboard" className="lp-topbar-btn lp-topbar-btn-outline">🏠 Mein Dashboard</a>
+                  <button className="lp-topbar-btn lp-topbar-btn-outline" onClick={() => { logout(); navigate('/'); }}>Abmelden</button>
+                </>
+              ) : (
+                <>
+                  <a href="/login" className="lp-topbar-btn lp-topbar-btn-outline">Anmelden</a>
+                  <a href="/register" className="lp-topbar-btn lp-topbar-btn-solid">Registrieren</a>
+                </>
+              )}
+            </div>
           </div>
 
           <div className="lp-hero-content">
