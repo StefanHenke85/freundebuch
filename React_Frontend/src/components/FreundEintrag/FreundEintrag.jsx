@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { EVENT_FRAGEN, getEventTyp } from '../../data/eventFragen.js';
+import { getTheme } from '../../data/eventThemes.js';
 import './FreundEintrag.css';
 
 const FreundEintrag = () => {
@@ -86,6 +87,7 @@ const FreundEintrag = () => {
   if (schritt === 'fehler') return <div className="fe-wrapper"><p className="fe-fehler">{fehler}</p></div>;
 
   const eventTyp = getEventTyp(daten?.event_typ);
+  const theme = getTheme(daten?.event_typ);
   const fragen = EVENT_FRAGEN[eventTyp.id] || EVENT_FRAGEN.eigener;
   const SEITE_GROESSE = 6;
   const seiten = Array.from(
@@ -113,9 +115,22 @@ const FreundEintrag = () => {
     </div>
   );
 
+  const themeVars = {
+    '--fe-cover':       theme.cover,
+    '--fe-cover-text':  theme.coverText,
+    '--fe-seite':       theme.seite,
+    '--fe-linie':       theme.linie,
+    '--fe-akzent':      theme.akzent,
+    '--fe-text':        theme.text,
+    '--fe-frage':       theme.frage,
+    '--fe-ruecken':     theme.ruecken,
+    '--event-farbe':    eventTyp.farbe,
+    'background':       theme.hintergrund,
+  };
+
   return (
-    <div className="fe-wrapper" style={{ '--event-farbe': eventTyp.farbe }}>
-      <div className="fe-buch">
+    <div className="fe-wrapper" style={themeVars}>
+      <div className="fe-buch" style={{ '--fe-ruecken': theme.ruecken }}>
 
         {/* Linke Seite */}
         <div className="fe-links">

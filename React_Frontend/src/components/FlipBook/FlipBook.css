@@ -1,108 +1,274 @@
-.flipbook-wrapper {
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Georgia&display=swap");
+
+.fb-wrapper {
+  min-height: calc(100vh - 56px);
+  background: radial-gradient(ellipse at center, #2a1505 0%, #1a0d00 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+.fb-laden {
+  color: #c4a882;
+  font-family: 'Georgia', serif;
+  font-style: italic;
+  font-size: 1rem;
+}
+
+.fb-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  min-height: calc(100vh - 100px);
-  background: #f5efe6;
-  padding: 1.5rem 1rem;
+  gap: 1.5rem;
 }
 
-.flipbook {
-  box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+.fb-book {
+  box-shadow: 0 30px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.05);
 }
 
-.demoPage {
+/* Jede Seite */
+.fb-page {
   background: #fdf8f0;
+  font-family: 'Georgia', serif;
+  position: relative;
+  overflow: hidden;
+  background-image: repeating-linear-gradient(
+    transparent, transparent 39px, #e8d5c0 39px, #e8d5c0 40px
+  );
+  background-position: 0 60px;
   border: 1px solid #d4b896;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Georgia', serif;
 }
 
-.page-cover {
+/* Cover */
+.fb-cover {
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #8b5e3c, #5c3a1e);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: #f5efe6;
+  gap: 0.6rem;
+  padding: 2rem;
   text-align: center;
-  padding: 1.5rem;
-}
-
-.page-cover h1 {
-  font-size: clamp(1.2rem, 4vw, 2rem);
-  font-family: 'Georgia', serif;
-  letter-spacing: 2px;
-  margin-bottom: 0.8rem;
-  text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
-}
-
-.page-cover p { font-size: 0.9rem; opacity: 0.85; }
-.page-back { background: linear-gradient(135deg, #5c3a1e, #8b5e3c); }
-
-.page-content {
-  width: 100%;
-  height: 100%;
-  padding: 1.5rem 1.2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   position: relative;
 }
 
-.page-number {
+.fb-cover-dekor {
+  width: 60%;
+  height: 2px;
+  background: rgba(255,255,255,0.3);
+  border-radius: 1px;
+}
+
+.fb-cover-dekor-unten {
+  position: absolute;
+  bottom: 2rem;
+  width: 40%;
+}
+
+.fb-cover-label {
+  font-family: 'Georgia', serif;
+  font-size: 0.8rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+  margin: 0;
+}
+
+.fb-cover-titel {
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(2rem, 6vw, 3rem);
+  color: #fff;
+  margin: 0;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+  letter-spacing: 2px;
+}
+
+.fb-cover-linie {
+  width: 40%;
+  height: 1px;
+  background: rgba(255,255,255,0.4);
+}
+
+.fb-cover-name {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.85);
+  margin: 0;
+  font-style: italic;
+}
+
+.fb-cover-jahr {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.5);
+  margin: 0;
+  letter-spacing: 2px;
+}
+
+.fb-rueckcover {
+  background: linear-gradient(135deg, #8b5e3c, #5c3a1e);
+}
+
+/* Intro */
+.fb-intro {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  gap: 1.2rem;
+}
+
+.fb-intro-zitat {
+  font-size: 0.88rem;
+  color: #5c3a1e;
+  font-style: italic;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.fb-intro-linie {
+  width: 40%;
+  height: 1px;
+  background: #d4b896;
+}
+
+.fb-intro-text {
+  font-size: 0.9rem;
+  color: #3a2510;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.fb-leer-hinweis {
+  font-size: 0.8rem;
+  color: #a0856a;
+  font-style: italic;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.fb-leer-hinweis a {
+  color: #8b5e3c;
+  text-decoration: underline;
+}
+
+/* Inhalt-Seiten */
+.fb-inhalt-seite {
+  height: 100%;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  position: relative;
+}
+
+.fb-seite-nr {
   position: absolute;
   bottom: 0.8rem;
   right: 1rem;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
+  color: #b8996e;
+  font-style: italic;
+}
+
+.fb-eintrag {
+  border-left: 2px solid #d4b896;
+  padding-left: 0.8rem;
+}
+
+.fb-eintrag-frage {
+  font-size: 0.72rem;
+  color: #8b5e3c;
+  font-weight: bold;
+  margin: 0 0 0.25rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  line-height: 1.3;
+}
+
+.fb-eintrag-antwort {
+  font-size: 0.9rem;
+  color: #3a2510;
+  font-style: italic;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Abschluss */
+.fb-abschluss {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  padding: 2rem;
+  text-align: center;
+}
+
+.fb-abschluss-text {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2rem;
+  color: #8b5e3c;
+  margin: 0;
+}
+
+.fb-abschluss-linie {
+  width: 30%;
+  height: 1px;
+  background: #d4b896;
+}
+
+.fb-abschluss-sub {
+  font-size: 0.8rem;
   color: #a0856a;
   font-style: italic;
+  margin: 0;
 }
 
-.page-question {
-  font-size: 0.88rem;
-  color: #5c3a1e;
-  font-weight: bold;
-  margin-bottom: 1rem;
-  line-height: 1.4;
-  border-left: 3px solid #8b5e3c;
-  padding-left: 0.7rem;
+.fb-abschluss-link {
+  font-size: 0.82rem;
+  color: #8b5e3c;
+  text-decoration: underline;
+  font-family: 'Georgia', serif;
 }
 
-.page-answer {
-  font-size: 0.88rem;
-  color: #3a2510;
-  line-height: 1.6;
+/* Navigation */
+.fb-nav {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.fb-nav-btn {
+  background: rgba(139,94,60,0.8);
+  color: #f5efe6;
+  border: none;
+  padding: 0.6rem 1.8rem;
+  border-radius: 4px;
+  font-family: 'Georgia', serif;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+.fb-nav-btn:hover { background: rgba(92,58,30,0.9); }
+
+.fb-nav-info {
+  color: #c4a882;
+  font-family: 'Georgia', serif;
+  font-size: 0.82rem;
   font-style: italic;
 }
 
-.flipbook-nav {
-  display: flex;
-  gap: 1.5rem;
-  margin-top: 1.2rem;
-}
-
-.flipbook-nav button {
-  background: #8b5e3c;
-  color: #f5efe6;
-  border: none;
-  padding: 0.55rem 1.5rem;
-  border-radius: 4px;
-  font-size: 0.9rem;
-  cursor: pointer;
-  font-family: 'Georgia', serif;
-  transition: background 0.2s;
-}
-
-.flipbook-nav button:hover { background: #5c3a1e; }
-
-@media (max-width: 480px) {
-  .flipbook-wrapper { padding: 0.75rem 0.5rem; }
-  .flipbook-nav { gap: 0.8rem; }
-  .flipbook-nav button { padding: 0.45rem 1rem; font-size: 0.82rem; }
+/* Mobile: Portrait-Modus (eine Seite) */
+@media (max-width: 600px) {
+  .fb-wrapper { padding: 1rem 0.5rem; }
+  .fb-nav { gap: 1rem; }
+  .fb-nav-btn { padding: 0.5rem 1.2rem; font-size: 0.82rem; }
 }

@@ -22,14 +22,26 @@
   width: 100%;
   max-width: 860px;
   min-height: 520px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.5), -6px 0 0 #5c3a1e;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
   border-radius: 2px 8px 8px 2px;
+  position: relative;
+}
+
+.fe-buch::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0;
+  width: 16px; height: 100%;
+  background: var(--fe-ruecken, linear-gradient(to right,#5c3a1e,#8b5e3c));
+  border-radius: 2px 0 0 2px;
+  z-index: 1;
 }
 
 .fe-links {
   flex: 1;
-  background: #fdf8f0;
-  border-right: 2px solid #d4b896;
+  background: var(--fe-seite, #fdf8f0);
+  border-right: 2px solid var(--fe-linie, #d4b896);
+  margin-left: 16px;
   padding: 1.5rem 1.2rem;
   display: flex;
   flex-direction: column;
@@ -39,13 +51,15 @@
 
 .fe-rechts {
   flex: 1;
-  background: #fdf8f0;
+  background: var(--fe-seite, #fdf8f0);
   padding: 1.5rem 1.2rem;
   display: flex;
   flex-direction: column;
   min-width: 0;
   background-image: repeating-linear-gradient(
-    transparent, transparent 39px, #e8d5c0 39px, #e8d5c0 40px
+    transparent, transparent 39px,
+    var(--fe-linie, #e8d5c0) 39px,
+    var(--fe-linie, #e8d5c0) 40px
   );
   background-position: 0 3rem;
 }
@@ -53,10 +67,10 @@
 .fe-buch-titel {
   font-family: 'Dancing Script', cursive;
   font-size: 1.5rem;
-  color: #5c3a1e;
+  color: var(--fe-frage, #5c3a1e);
   margin: 0;
   text-align: center;
-  border-bottom: 1px solid #d4b896;
+  border-bottom: 1px solid var(--fe-linie, #d4b896);
   padding-bottom: 0.4rem;
 }
 
@@ -272,7 +286,7 @@
 
 .fe-frage-text {
   font-size: 0.8rem;
-  color: #5c3a1e;
+  color: var(--fe-frage, #5c3a1e);
   font-weight: bold;
   line-height: 1.3;
 }
@@ -280,15 +294,15 @@
 .fe-frage-input {
   background: transparent;
   border: none;
-  border-bottom: 1px solid #d4b896;
+  border-bottom: 1px solid var(--fe-linie, #d4b896);
   outline: none;
   font-family: 'Georgia', serif;
   font-size: 0.85rem;
-  color: #3a2510;
+  color: var(--fe-text, #3a2510);
   padding: 0.15rem 0;
 }
 
-.fe-frage-input:focus { border-bottom-color: #5c3a1e; }
+.fe-frage-input:focus { border-bottom-color: var(--fe-akzent, #5c3a1e); }
 
 .fe-btn {
   background: #8b5e3c;
