@@ -13,18 +13,23 @@ const Home = () => {
   const [erstelle, setErstelle] = useState(false);
   const [link, setLink] = useState('');
   const [kopiert, setKopiert] = useState(false);
+  const [schritt, setSchritt] = useState(1); // 1=event, 2=theme, 3=fertig
 
   const handleEventWahl = (typ) => {
     setGewaehlterEvent(typ);
     setGewaehlterTheme(EVENT_DEFAULT_THEME[typ.id] || 'braun');
+    setSchritt(2);
     setLink('');
+  };
+
+  const handleThemeWahl = (id) => {
+    setGewaehlterTheme(id);
   };
 
   const handleStart = async () => {
     if (!gewaehlterEvent || !gewaehlterTheme) return;
 
     if (!token) {
-      // Nicht eingeloggt → zur Registrierung mit Vorauswahl
       const params = new URLSearchParams({
         event: gewaehlterEvent.id,
         name: gewaehlterEvent.label,
@@ -34,7 +39,6 @@ const Home = () => {
       return;
     }
 
-    // Eingeloggt → direkt Event erstellen
     setErstelle(true);
     try {
       const res = await fetch('/api/link/generate', {
@@ -48,8 +52,9 @@ const Home = () => {
       });
       const data = await res.json();
       setLink(data.link);
+      setSchritt(3);
     } catch {
-      alert('Fehler beim Erstellen des Events.');
+      alert('Fehler beim Erstellen.');
     } finally {
       setErstelle(false);
     }
@@ -65,184 +70,177 @@ const Home = () => {
 
   return (
     <div className="home-page">
-
-      {/* Hero */}
-      <section className="home-hero">
-        <img className="home-hero-buch" src="/img/BraunesBuch.png" alt="" />
-        <img className="home-hero-feder" src="/img/feder.png" alt="" />
-        <div className="home-hero-content">
-          <p className="home-hero-label">Digitales Gästebuch</p>
-          <h1 className="home-hero-titel">Freundebuch</h1>
-          <p className="home-hero-sub">
-            Erstelle in Sekunden ein persönliches Gästebuch für jeden Anlass.<br />
-            Deine Gäste tragen sich ein — kein Account nötig.
-          </p>
-          <div className="home-hero-buttons">
-            <a className="home-btn" href="#erstellen">Jetzt Gästebuch erstellen ↓</a>
-            {token
-              ? <a className="home-btn home-btn-outline" href="/MeineEvents">Meine Events</a>
-              : <a className="home-btn home-btn-outline" href="/login">Anmelden</a>
-            }
-          </div>
+      {/* Links: Info-Panel */}
+      <aside className="home-info">
+        <div className="home-info-top">
+          <h1 className="home-logo-titel">📖 Freundebuch</h1>
+          <p className="home-tagline">Digitales Gästebuch für jeden Anlass</p>
         </div>
-      </section>
 
-      {/* Features */}
-      <section className="home-features">
-        {[
-          { emoji: '🎨', titel: '10 Design-Themes', text: 'Von klassisch braun über romantisches Rosa bis zum dunklen Nacht-Look — wähle das Design das zu deinem Event passt.' },
-          { emoji: '📸', titel: 'Fotos & Selfies', text: 'Gäste können direkt ein Selfie per Kamera aufnehmen oder ein Foto hochladen. Macht jede Seite persönlicher.' },
-          { emoji: '🔗', titel: 'Kein Account nötig', text: 'Gäste öffnen einfach deinen Link — fertig. Keine Registrierung, keine App, kein Aufwand.' },
-          { emoji: '🖨️', titel: 'Drucken & PDF', text: 'Alle Einträge als PDF speichern oder direkt drucken. Dein digitales Gästebuch wird zum echten Erinnerungsstück.' },
-          { emoji: '📱', titel: 'Auf jedem Gerät', text: 'Handy, Tablet oder PC — das Freundebuch funktioniert überall. Perfekt für spontane Einträge beim Event.' },
-          { emoji: '🔒', titel: 'Deine Daten, dein Buch', text: 'Keine Werbung, kein Tracking. Deine Gästebücher gehören dir — kostenlos und ohne versteckte Kosten.' },
-        ].map((f, i) => (
-          <div key={i} className="home-feature-card">
-            <div className="home-feature-emoji">{f.emoji}</div>
-            <h3 className="home-feature-titel">{f.titel}</h3>
-            <p className="home-feature-text">{f.text}</p>
-          </div>
-        ))}
-      </section>
-
-      {/* Schritte */}
-      <section className="home-steps">
-        <h2 className="home-steps-titel">So einfach geht's</h2>
-        <div className="home-steps-liste">
+        <div className="home-info-features">
           {[
-            { nr: '1', titel: 'Event & Design wählen', text: 'Wähle Anlass und Farbdesign — live Vorschau inklusive.' },
-            { nr: '2', titel: token ? 'Link direkt erstellen' : 'Kurz registrieren', text: token ? 'Als eingeloggter Nutzer bekommst du den Link sofort.' : 'Nur E-Mail und Passwort — in 10 Sekunden fertig.' },
-            { nr: '3', titel: 'Link teilen', text: 'Schick den Link per WhatsApp, Instagram oder E-Mail.' },
-            { nr: '4', titel: 'Einträge sammeln', text: 'Gäste tragen sich ein — mit Foto und Antworten.' },
-          ].map((s, i, arr) => (
-            <React.Fragment key={i}>
-              <div className="home-step">
-                <div className="home-step-nr">{s.nr}</div>
-                <div><strong>{s.titel}</strong><p>{s.text}</p></div>
-              </div>
-              {i < arr.length - 1 && <div className="home-step-linie" />}
-            </React.Fragment>
+            { emoji: '🎨', text: '10 Design-Themes' },
+            { emoji: '📸', text: 'Fotos & Selfies' },
+            { emoji: '🔗', text: 'Kein Account für Gäste' },
+            { emoji: '🖨️', text: 'Drucken & PDF' },
+            { emoji: '📱', text: 'Auf jedem Gerät' },
+            { emoji: '🔒', text: 'Kostenlos & privat' },
+          ].map((f, i) => (
+            <div key={i} className="home-feature-pill">
+              <span>{f.emoji}</span>
+              <span>{f.text}</span>
+            </div>
           ))}
         </div>
-      </section>
 
-      {/* Konfigurator */}
-      <section className="home-erstellen" id="erstellen">
-        <h2 className="home-erstellen-titel">
-          {token ? 'Neues Gästebuch erstellen' : 'Dein Gästebuch in 3 Klicks'}
-        </h2>
+        <div className="home-info-steps">
+          {[
+            { nr: '1', text: 'Event & Design wählen' },
+            { nr: '2', text: token ? 'Link sofort erstellen' : 'Kurz registrieren' },
+            { nr: '3', text: 'Link teilen & Einträge sammeln' },
+          ].map((s, i) => (
+            <div key={i} className="home-mini-step">
+              <span className="home-mini-step-nr">{s.nr}</span>
+              <span className="home-mini-step-text">{s.text}</span>
+            </div>
+          ))}
+        </div>
 
-        {/* Schritt 1: Event */}
-        <div className="home-schritt">
-          <p className="home-schritt-label">① Wähle deinen Anlass</p>
-          <div className="home-event-grid">
-            {EVENT_TYPEN.map(typ => (
-              <button
-                key={typ.id}
-                className={`home-event-btn ${gewaehlterEvent?.id === typ.id ? 'aktiv' : ''}`}
-                style={gewaehlterEvent?.id === typ.id ? { borderColor: typ.farbe, background: typ.farbe + '22' } : {}}
-                onClick={() => handleEventWahl(typ)}
-              >
-                <span className="home-event-emoji">{typ.emoji}</span>
-                <span>{typ.label}</span>
-              </button>
-            ))}
+        <div className="home-info-bottom">
+          {token
+            ? <a href="/MeineEvents" className="home-info-link">Meine Events →</a>
+            : <>
+                <a href="/login" className="home-info-link">Bereits registriert? Anmelden</a>
+              </>
+          }
+          <div className="home-footer-mini">
+            <a href="/Impressum">Impressum</a>
+            <a href="/Datenschutz">Datenschutz</a>
+            <a href="/Kontakt">Kontakt</a>
+          </div>
+        </div>
+      </aside>
+
+      {/* Rechts: Konfigurator */}
+      <main className="home-konfigurator">
+
+        {/* Schritt-Indikatoren */}
+        <div className="home-konfig-schritte">
+          <div className={`home-konfig-schritt ${schritt >= 1 ? 'aktiv' : ''} ${schritt > 1 ? 'fertig' : ''}`}
+            onClick={() => schritt > 1 && setSchritt(1)}>
+            {schritt > 1 ? '✓' : '1'} Anlass
+          </div>
+          <div className="home-konfig-linie" />
+          <div className={`home-konfig-schritt ${schritt >= 2 ? 'aktiv' : ''} ${schritt > 2 ? 'fertig' : ''}`}
+            onClick={() => schritt > 2 && setSchritt(2)}>
+            {schritt > 2 ? '✓' : '2'} Design
+          </div>
+          <div className="home-konfig-linie" />
+          <div className={`home-konfig-schritt ${schritt >= 3 ? 'aktiv' : ''}`}>
+            3 Fertig
           </div>
         </div>
 
-        {/* Schritt 2: Design */}
-        {gewaehlterEvent && (
-          <div className="home-schritt">
-            <p className="home-schritt-label">② Wähle ein Design</p>
-            <div className="home-theme-grid">
-              {THEMES.map(t => (
+        {/* Schritt 1: Event wählen */}
+        {schritt === 1 && (
+          <div className="home-konfig-panel">
+            <h2 className="home-konfig-titel">Für welchen Anlass?</h2>
+            <div className="home-event-grid">
+              {EVENT_TYPEN.map(typ => (
                 <button
-                  key={t.id}
-                  className={`home-theme-btn ${gewaehlterTheme === t.id ? 'aktiv' : ''}`}
-                  onClick={() => { setGewaehlterTheme(t.id); setLink(''); }}
-                  title={t.label}
+                  key={typ.id}
+                  className={`home-event-btn ${gewaehlterEvent?.id === typ.id ? 'aktiv' : ''}`}
+                  style={gewaehlterEvent?.id === typ.id ? { borderColor: typ.farbe, background: typ.farbe + '22' } : {}}
+                  onClick={() => handleEventWahl(typ)}
                 >
-                  <div className="home-theme-vorschau">
-                    <div style={{ background: t.vorschau[0], flex: 1, borderRadius: '3px 3px 0 0' }} />
-                    <div style={{ background: t.vorschau[1], flex: 2 }} />
-                    <div style={{ background: t.vorschau[2], height: '3px' }} />
-                  </div>
-                  <span className="home-theme-label">{t.emoji} {t.label}</span>
-                  {gewaehlterTheme === t.id && <span className="home-theme-check">✓</span>}
+                  <span className="home-event-emoji">{typ.emoji}</span>
+                  <span className="home-event-label">{typ.label}</span>
                 </button>
               ))}
             </div>
           </div>
         )}
 
-        {/* Schritt 3: Vorschau + CTA */}
-        {gewaehlterEvent && gewaehlterTheme && !link && (
-          <div className="home-vorschau">
-            {/* Buch-Vorschau */}
-            <div className="home-buch-vorschau-wrap">
-              <div className="home-buch-vorschau" style={{ background: activeTheme.seite }}>
-                <div className="home-buch-ruecken" style={{ background: activeTheme.ruecken }} />
-                <div className="home-buch-innen">
-                  <div className="home-buch-cover-strip" style={{ background: activeTheme.coverGradient }}>
-                    <span style={{ color: activeTheme.coverText, fontFamily: 'Dancing Script,cursive', fontSize: '0.9rem' }}>
-                      {gewaehlterEvent.emoji} {gewaehlterEvent.label}
-                    </span>
-                  </div>
-                  <div className="home-buch-seiten-preview" style={{ borderColor: activeTheme.linie }}>
-                    {[1,2,3].map(i => (
-                      <div key={i} className="home-buch-linie" style={{ background: activeTheme.linie }} />
-                    ))}
-                    <div className="home-buch-eintrag-preview">
-                      <div style={{ width: '40%', height: '6px', background: activeTheme.akzent, opacity: 0.4, borderRadius: 2 }} />
-                      <div style={{ width: '70%', height: '4px', background: activeTheme.text, opacity: 0.2, borderRadius: 2, marginTop: 4 }} />
+        {/* Schritt 2: Design + Vorschau */}
+        {schritt === 2 && (
+          <div className="home-konfig-panel">
+            <h2 className="home-konfig-titel">
+              {gewaehlterEvent?.emoji} {gewaehlterEvent?.label} — Design wählen
+            </h2>
+            <div className="home-konfig-mitte">
+              {/* Theme-Grid links */}
+              <div className="home-theme-grid">
+                {THEMES.map(t => (
+                  <button
+                    key={t.id}
+                    className={`home-theme-btn ${gewaehlterTheme === t.id ? 'aktiv' : ''}`}
+                    onClick={() => handleThemeWahl(t.id)}
+                    title={t.label}
+                  >
+                    <div className="home-theme-vorschau">
+                      <div style={{ background: t.vorschau[0], flex: '0 0 30%', borderRadius: '3px 0 0 3px' }} />
+                      <div style={{ background: t.vorschau[1], flex: 1 }} />
+                    </div>
+                    <span className="home-theme-label">{t.emoji} {t.label}</span>
+                    {gewaehlterTheme === t.id && <span className="home-theme-check">✓</span>}
+                  </button>
+                ))}
+              </div>
+
+              {/* Buch-Vorschau rechts */}
+              <div className="home-buch-preview">
+                <div className="home-buch-3d" style={{ '--buch-cover': activeTheme.coverGradient, '--buch-seite': activeTheme.seite, '--buch-ruecken': activeTheme.ruecken, '--buch-linie': activeTheme.linie, '--buch-akzent': activeTheme.akzent, '--buch-text': activeTheme.coverText }}>
+                  <div className="home-buch-3d-ruecken" />
+                  <div className="home-buch-3d-vorderseite">
+                    <div className="home-buch-3d-cover">
+                      <span className="home-buch-3d-cover-emoji">{gewaehlterEvent?.emoji}</span>
+                      <span className="home-buch-3d-cover-titel">{gewaehlterEvent?.label}</span>
+                    </div>
+                    <div className="home-buch-3d-seite">
+                      <div className="home-buch-3d-linie" />
+                      <div className="home-buch-3d-linie" />
+                      <div className="home-buch-3d-linie short" />
+                      <div className="home-buch-3d-eintrag">
+                        <div className="home-buch-3d-eintrag-dot" />
+                        <div className="home-buch-3d-eintrag-text" />
+                      </div>
                     </div>
                   </div>
                 </div>
+                <p className="home-buch-preview-label">
+                  {activeTheme.emoji} <strong>{activeTheme.label}</strong>
+                </p>
+                <button
+                  className="home-konfig-weiter-btn"
+                  style={{ background: activeTheme.coverGradient }}
+                  onClick={handleStart}
+                  disabled={erstelle}
+                >
+                  {erstelle
+                    ? '⏳ Erstelle…'
+                    : token
+                      ? `${gewaehlterEvent?.emoji} Link erstellen`
+                      : 'Kostenlos starten →'
+                  }
+                </button>
+                {!token && (
+                  <p className="home-konfig-hinweis">Nur E-Mail + Passwort — 10 Sekunden</p>
+                )}
               </div>
-            </div>
-
-            {/* Info + Button */}
-            <div className="home-vorschau-info">
-              <p className="home-vorschau-theme-name" style={{ color: activeTheme.akzent }}>
-                {activeTheme.emoji} Design: <strong>{activeTheme.label}</strong>
-              </p>
-              <p className="home-vorschau-event-name">
-                {gewaehlterEvent.emoji} {gewaehlterEvent.label}-Gästebuch
-              </p>
-              <button
-                className="home-start-btn"
-                style={{ background: activeTheme.coverGradient }}
-                onClick={handleStart}
-                disabled={erstelle}
-              >
-                {erstelle
-                  ? 'Erstelle Link…'
-                  : token
-                    ? `${gewaehlterEvent.emoji} Link jetzt erstellen`
-                    : 'Kostenlos starten →'
-                }
-              </button>
-              {!token && (
-                <p className="home-vorschau-hinweis">Kostenlos · Kein Abo · Nur E-Mail nötig</p>
-              )}
-              {token && (
-                <p className="home-vorschau-hinweis">Du bist eingeloggt — Link wird sofort erstellt</p>
-              )}
             </div>
           </div>
         )}
 
-        {/* Link-Ergebnis wenn eingeloggt */}
-        {link && (
-          <div className="home-link-ergebnis" style={{ borderColor: activeTheme.akzent }}>
-            <div className="home-link-header">
-              <span style={{ fontSize: '1.5rem' }}>{gewaehlterEvent?.emoji}</span>
-              <div>
-                <p className="home-link-titel">Dein Gästebuch-Link ist fertig!</p>
-                <p className="home-link-sub">{gewaehlterEvent?.label} · {activeTheme.label} Design</p>
-              </div>
-            </div>
-            <div className="home-link-row">
+        {/* Schritt 3: Link fertig */}
+        {schritt === 3 && (
+          <div className="home-konfig-panel home-konfig-erfolg">
+            <div className="home-erfolg-icon">{gewaehlterEvent?.emoji}</div>
+            <h2 className="home-konfig-titel">Dein Gästebuch ist bereit!</h2>
+            <p className="home-erfolg-sub">
+              {gewaehlterEvent?.label} · {activeTheme.emoji} {activeTheme.label} Design
+            </p>
+
+            <div className="home-link-box">
               <input
                 className="home-link-input"
                 type="text"
@@ -251,51 +249,27 @@ const Home = () => {
                 onClick={e => e.target.select()}
               />
               <button
-                className="home-link-kopieren-btn"
+                className="home-link-copy-btn"
                 style={{ background: activeTheme.coverGradient }}
                 onClick={handleKopieren}
               >
-                {kopiert ? '✓ Kopiert!' : 'Kopieren'}
+                {kopiert ? '✓ Kopiert!' : '📋 Kopieren'}
               </button>
             </div>
-            <div className="home-link-actions">
-              <button className="home-link-neu" onClick={() => { setLink(''); setGewaehlterEvent(null); }}>
+
+            <p className="home-link-hinweis">
+              Schick diesen Link an deine Gäste — sie können sofort eintragen, kein Account nötig!
+            </p>
+
+            <div className="home-erfolg-actions">
+              <button className="home-erfolg-neu" onClick={() => { setSchritt(1); setGewaehlterEvent(null); setLink(''); }}>
                 + Weiteres Event erstellen
               </button>
-              <a className="home-link-zu-events" href="/MeineEvents">Alle meine Events →</a>
+              <a href="/MeineEvents" className="home-erfolg-events">Alle Events verwalten →</a>
             </div>
           </div>
         )}
-      </section>
-
-      {/* Event-Typen Übersicht */}
-      <section className="home-event-typen">
-        <h2 className="home-event-typen-titel">Für jeden Anlass das passende Gästebuch</h2>
-        <div className="home-event-typen-grid">
-          {[
-            { emoji: '🎂', titel: 'Geburtstag', text: 'Lass Freunde und Familie unvergessliche Glückwünsche und Erinnerungen hinterlassen.' },
-            { emoji: '💍', titel: 'Hochzeit', text: 'Das schönste Gästebuch für den schönsten Tag — mit Fotos und persönlichen Wünschen.' },
-            { emoji: '⛪', titel: 'Taufe & Kommunion', text: 'Liebevolle Einträge von Familie und Paten für einen besonderen Lebensmoment.' },
-            { emoji: '🃏', titel: 'TCG Events', text: 'Turniere, Pre-Releases, Deck-Battles — dokumentiere deine Community.' },
-            { emoji: '🎉', titel: 'Party & Feier', text: 'Wer war dabei, was war der lustigste Moment? Deine Party für immer festgehalten.' },
-            { emoji: '📝', titel: 'Eigene Events', text: 'Firmenfeiern, Schulabschlüsse, Vereinsjubiläen — individuell anpassbar.' },
-          ].map((ev, i) => (
-            <div key={i} className="home-event-typ-card">
-              <span className="home-event-typ-emoji">{ev.emoji}</span>
-              <h3 className="home-event-typ-titel">{ev.titel}</h3>
-              <p className="home-event-typ-text">{ev.text}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Footer-Links */}
-      <div className="home-footer-links">
-        {token ? <a href="/MeineEvents">Meine Events</a> : <a href="/login">Anmelden</a>}
-        <a href="/Impressum">Impressum</a>
-        <a href="/Datenschutz">Datenschutz</a>
-        <a href="/Kontakt">Kontakt</a>
-      </div>
+      </main>
     </div>
   );
 };
