@@ -1,0 +1,365 @@
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Georgia&display=swap");
+
+.me-wrapper {
+  min-height: calc(100vh - 100px);
+  background: #f5efe6;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 1.5rem 1rem;
+  font-family: 'Georgia', serif;
+}
+
+.me-laden {
+  color: #5c3a1e;
+  font-style: italic;
+  margin-top: 3rem;
+}
+
+.me-layout {
+  display: flex;
+  width: 100%;
+  max-width: 1100px;
+  min-height: 520px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Spalte 1: Events */
+.me-events-liste {
+  width: 220px;
+  flex-shrink: 0;
+  background: #3a2510;
+  color: #f5efe6;
+  padding: 1.2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  overflow-y: auto;
+}
+
+.me-titel {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.4rem;
+  color: #f5efe6;
+  margin: 0;
+  text-align: center;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  padding-bottom: 0.5rem;
+}
+
+.me-anzahl {
+  font-size: 0.72rem;
+  color: #c4a882;
+  text-align: center;
+  font-style: italic;
+  margin: 0;
+}
+
+.me-leer {
+  font-size: 0.82rem;
+  color: #c4a882;
+  font-style: italic;
+  line-height: 1.6;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.me-liste {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.me-event-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+  transition: background 0.15s;
+}
+
+.me-event-item:hover { background: rgba(255,255,255,0.1); }
+.me-event-aktiv { background: rgba(255,255,255,0.15); }
+
+.me-event-emoji { font-size: 1.2rem; flex-shrink: 0; }
+
+.me-event-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.me-event-info strong {
+  font-size: 0.82rem;
+  color: #f5efe6;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.me-event-info span {
+  font-size: 0.68rem;
+  color: #c4a882;
+  font-style: italic;
+}
+
+.me-event-count {
+  min-width: 22px;
+  height: 22px;
+  border-radius: 11px;
+  color: white;
+  font-size: 0.72rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 5px;
+  flex-shrink: 0;
+}
+
+/* Spalte 2: Gäste */
+.me-gaeste-liste {
+  width: 220px;
+  flex-shrink: 0;
+  background: #fdf8f0;
+  border-right: 1px solid #d4b896;
+  padding: 1.2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  overflow-y: auto;
+}
+
+.me-gaeste-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.5rem;
+  border-bottom: 1px solid #d4b896;
+  padding-bottom: 0.6rem;
+  margin-bottom: 0.3rem;
+}
+
+.me-gaeste-titel {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.1rem;
+  color: #5c3a1e;
+  margin: 0;
+}
+
+.me-gaeste-datum {
+  font-size: 0.7rem;
+  color: #a0856a;
+  font-style: italic;
+  margin: 0.1rem 0 0 0;
+}
+
+.me-link-kopieren {
+  background: transparent;
+  border: 1px solid #d4b896;
+  color: #8b5e3c;
+  border-radius: 4px;
+  padding: 0.3rem 0.5rem;
+  font-size: 0.7rem;
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: 'Georgia', serif;
+  transition: background 0.15s;
+  flex-shrink: 0;
+}
+
+.me-link-kopieren:hover { background: #f0e6d6; }
+
+.me-gast-liste {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.me-gast-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.4rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.15s;
+  border-bottom: 1px solid #f0e6d6;
+}
+
+.me-gast-item:hover { background: #f0e6d6; }
+.me-gast-aktiv { background: #e8d5c0; }
+
+.me-gast-foto {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.me-gast-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 0.85rem;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.me-gast-avatar-gross {
+  width: 52px;
+  height: 52px;
+  font-size: 1.2rem;
+}
+
+.me-gast-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.05rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.me-gast-info strong {
+  font-size: 0.82rem;
+  color: #3a2510;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.me-gast-info span {
+  font-size: 0.68rem;
+  color: #a0856a;
+  font-style: italic;
+}
+
+.me-loeschen-btn {
+  background: transparent;
+  border: none;
+  color: #c4a882;
+  cursor: pointer;
+  font-size: 0.75rem;
+  opacity: 0;
+  transition: opacity 0.15s, color 0.15s;
+  padding: 0.2rem;
+  flex-shrink: 0;
+}
+
+.me-gast-item:hover .me-loeschen-btn { opacity: 1; }
+.me-loeschen-btn:hover { color: #8b2020; }
+
+/* Spalte 3: Antworten */
+.me-antworten {
+  flex: 1;
+  background: #fdf8f0;
+  padding: 1.2rem 1rem;
+  overflow-y: auto;
+  min-width: 0;
+  background-image: repeating-linear-gradient(
+    transparent, transparent 39px, #e8d5c0 39px, #e8d5c0 40px
+  );
+  background-position: 0 4rem;
+}
+
+.me-hinweis {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #a0856a;
+  font-style: italic;
+  font-size: 0.88rem;
+  text-align: center;
+}
+
+.me-antworten-header {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid #d4b896;
+  margin-bottom: 0.8rem;
+}
+
+.me-antworten-foto {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #8b5e3c;
+  flex-shrink: 0;
+}
+
+.me-antworten-name {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.2rem;
+  color: #5c3a1e;
+  margin: 0;
+}
+
+.me-antworten-email {
+  font-size: 0.72rem;
+  color: #a0856a;
+  font-style: italic;
+  margin: 0.1rem 0 0 0;
+}
+
+.me-antworten-liste {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.me-antwort-item {
+  border-left: 2px solid #d4b896;
+  padding-left: 0.7rem;
+}
+
+.me-frage {
+  font-size: 0.72rem;
+  color: #8b5e3c;
+  font-weight: bold;
+  margin: 0 0 0.15rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.me-antwort {
+  font-size: 0.88rem;
+  color: #3a2510;
+  font-style: italic;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Mobile: Tabs statt 3 Spalten */
+@media (max-width: 768px) {
+  .me-layout { flex-direction: column; min-height: auto; }
+  .me-events-liste { width: 100%; max-height: 200px; }
+  .me-gaeste-liste { width: 100%; border-right: none; border-bottom: 1px solid #d4b896; max-height: 220px; }
+  .me-loeschen-btn { opacity: 1; }
+}
+
+@media (max-width: 480px) {
+  .me-wrapper { padding: 0.5rem; }
+  .me-events-liste, .me-gaeste-liste, .me-antworten { padding: 0.8rem; }
+}

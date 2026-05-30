@@ -34,6 +34,7 @@ import Book from "./components/MeineFreundeSeite/MeineFreundeSeite.jsx";
 import Chat from "./components/Chat/chat.jsx";
 import FreundEintrag from "./components/FreundEintrag/FreundEintrag.jsx";
 import DruckAnsicht from "./components/DruckAnsicht/DruckAnsicht.jsx";
+import MeineEvents from "./components/MeineEvents/MeineEvents.jsx";
 
 function App() {
   const location = useLocation();
@@ -70,6 +71,7 @@ function App() {
         <Route path="/FlipBook" element={<DemoBook />} />
 
         <Route path="/MeineFreunde" element={<Book />} />
+        <Route path="/MeineEvents" element={<MeineEvents />} />
 
         <Route path="/Profil" element={<Profil1 />} />
 

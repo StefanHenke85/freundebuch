@@ -60,12 +60,52 @@
   padding-bottom: 0.4rem;
 }
 
+.fe-event-header {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  border-left: 4px solid #8b5e3c;
+  padding-left: 0.7rem;
+}
+
+.fe-event-emoji { font-size: 1.8rem; flex-shrink: 0; }
+
+.fe-event-name {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.1rem;
+  color: #3a2510;
+  margin: 0;
+  font-weight: bold;
+}
+
 .fe-besitzer {
-  text-align: center;
   color: #8b5e3c;
   font-style: italic;
-  font-size: 0.85rem;
+  font-size: 0.78rem;
   margin: 0;
+}
+
+.fe-event-datum {
+  font-size: 0.72rem;
+  color: #a0856a;
+  margin: 0;
+  font-style: italic;
+}
+
+.fe-nav-row {
+  display: flex;
+  gap: 0.6rem;
+  justify-content: flex-end;
+  margin-top: auto;
+}
+
+.fe-abschluss-check {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  text-align: center;
+  padding: 1rem 0;
 }
 
 /* Foto */

@@ -8,28 +8,29 @@ module.exports = async function handler(req, res) {
   if (req.method === 'GET') {
     try {
       const link = await sql`
-        SELECT s.id, s.user_id, u.vorname, u.nachname
+        SELECT s.id, s.user_id, s.event_typ, s.event_name, s.event_datum,
+               u.vorname, u.nachname
         FROM share_links s
         JOIN users u ON u.id = s.user_id
         WHERE s.id = ${linkId}
       `;
       if (link.rows.length === 0) return res.status(404).json({ error: 'Link nicht gefunden.' });
 
-      const { vorname, nachname, user_id } = link.rows[0];
+      const { vorname, nachname, user_id, event_typ, event_name, event_datum } = link.rows[0];
 
       const eintraege = await sql`
         SELECT freund_name, antworten, foto, created_at
         FROM freunde_eintraege
-        WHERE besitzer_id = ${user_id}
+        WHERE besitzer_id = ${user_id} AND link_id = ${linkId}
         ORDER BY created_at DESC
       `;
-
-      const fragen = await sql`SELECT frage FROM fragen ORDER BY id`;
 
       return res.status(200).json({
         besitzer: `${vorname} ${nachname}`,
         besitzer_id: user_id,
-        fragen: fragen.rows.map(f => f.frage),
+        event_typ: event_typ || 'eigener',
+        event_name: event_name || null,
+        event_datum: event_datum || null,
         eintraege: eintraege.rows,
       });
     } catch (err) {
@@ -49,8 +50,8 @@ module.exports = async function handler(req, res) {
 
       const { user_id } = link.rows[0];
       await sql`
-        INSERT INTO freunde_eintraege (besitzer_id, freund_name, freund_email, antworten, foto)
-        VALUES (${user_id}, ${freund_name}, ${freund_email || null}, ${JSON.stringify(antworten)}, ${foto || null})
+        INSERT INTO freunde_eintraege (besitzer_id, link_id, freund_name, freund_email, antworten, foto)
+        VALUES (${user_id}, ${linkId}, ${freund_name}, ${freund_email || null}, ${JSON.stringify(antworten)}, ${foto || null})
       `;
       return res.status(201).json({ success: true });
     } catch (err) {
