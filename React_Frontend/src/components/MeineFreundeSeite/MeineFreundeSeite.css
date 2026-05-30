@@ -139,6 +139,34 @@
   font-size: 1.5rem;
 }
 
+.mf-loeschen-btn {
+  margin-left: auto;
+  background: transparent;
+  border: 1px solid transparent;
+  color: #c4a882;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.15s, color 0.15s;
+  opacity: 0;
+}
+
+.mf-eintrag:hover .mf-loeschen-btn {
+  opacity: 1;
+}
+
+.mf-loeschen-btn:hover {
+  background: #8b2020;
+  color: #fff;
+  border-color: #8b2020;
+}
+
 .mf-info {
   display: flex;
   flex-direction: column;

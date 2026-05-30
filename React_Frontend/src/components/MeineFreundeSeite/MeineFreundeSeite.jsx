@@ -9,6 +9,7 @@ const MeineFreundeSeite = () => {
   const [freunde, setFreunde] = useState([]);
   const [ausgewaehlt, setAusgewaehlt] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [loescheId, setLoescheId] = useState(null);
 
   useEffect(() => {
     if (!token) { navigate('/login'); return; }
@@ -18,7 +19,26 @@ const MeineFreundeSeite = () => {
       .catch(() => setLoading(false));
   }, [token, navigate]);
 
-  if (loading) return <div className="mf-wrapper"><p style={{ color: '#c4a882', fontStyle: 'italic' }}>Laden…</p></div>;
+  const handleLoeschen = async (e, id, i) => {
+    e.stopPropagation();
+    if (!window.confirm('Diesen Eintrag wirklich löschen?')) return;
+    setLoescheId(id);
+    try {
+      const res = await fetch(`/api/freunde-loeschen?id=${id}`, {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (res.ok) {
+        setFreunde(prev => prev.filter((_, idx) => idx !== i));
+        if (ausgewaehlt === i) setAusgewaehlt(null);
+        else if (ausgewaehlt > i) setAusgewaehlt(ausgewaehlt - 1);
+      }
+    } finally {
+      setLoescheId(null);
+    }
+  };
+
+  if (loading) return <div className="mf-wrapper"><p style={{ color: '#5c3a1e', fontStyle: 'italic' }}>Laden…</p></div>;
 
   return (
     <div className="mf-wrapper">
@@ -36,25 +56,33 @@ const MeineFreundeSeite = () => {
           ) : (
             <ul className="mf-liste">
               {freunde.map((f, i) => (
-                <li key={i}
+                <li key={f.id}
                   className={`mf-eintrag ${ausgewaehlt === i ? 'mf-eintrag-aktiv' : ''}`}
                   onClick={() => setAusgewaehlt(ausgewaehlt === i ? null : i)}
                 >
                   {f.foto
-            ? <img src={f.foto} alt={f.freund_name} className="mf-avatar-foto" />
-            : <div className="mf-avatar">{f.freund_name.charAt(0).toUpperCase()}</div>
-          }
+                    ? <img src={f.foto} alt={f.freund_name} className="mf-avatar-foto" />
+                    : <div className="mf-avatar">{f.freund_name.charAt(0).toUpperCase()}</div>
+                  }
                   <div className="mf-info">
                     <strong>{f.freund_name}</strong>
                     <span>{new Date(f.created_at).toLocaleDateString('de-DE')}</span>
                   </div>
+                  <button
+                    className="mf-loeschen-btn"
+                    onClick={e => handleLoeschen(e, f.id, i)}
+                    disabled={loescheId === f.id}
+                    title="Eintrag löschen"
+                  >
+                    {loescheId === f.id ? '…' : '✕'}
+                  </button>
                 </li>
               ))}
             </ul>
           )}
         </div>
 
-        {/* Rechte Seite: Antworten des ausgewählten Freundes */}
+        {/* Rechte Seite: Antworten */}
         <div className="mf-rechts">
           {ausgewaehlt === null ? (
             <div className="mf-hinweis">
