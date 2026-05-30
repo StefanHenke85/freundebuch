@@ -5,18 +5,26 @@ const jwt = require('jsonwebtoken');
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
 
-  const { username, email, password, vorname, nachname, geburtsdatum, adresse } = req.body;
+  const { email, password } = req.body;
 
-  if (!username || !email || !password) {
-    return res.status(400).json({ error: 'Benutzername, E-Mail und Passwort sind erforderlich.' });
+  if (!email || !password) {
+    return res.status(400).json({ error: 'E-Mail und Passwort sind erforderlich.' });
   }
+
+  if (password.length < 6) {
+    return res.status(400).json({ error: 'Passwort muss mindestens 6 Zeichen lang sein.' });
+  }
+
+  // Username aus E-Mail ableiten + zufällige Zahl damit er unique ist
+  const base = email.split('@')[0].replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+  const username = base + Math.floor(Math.random() * 9000 + 1000);
 
   const password_hash = await bcrypt.hash(password, 10);
 
   try {
     const result = await sql`
-      INSERT INTO users (username, email, password_hash, vorname, nachname, geburtsdatum, adresse)
-      VALUES (${username}, ${email}, ${password_hash}, ${vorname}, ${nachname}, ${geburtsdatum || null}, ${adresse})
+      INSERT INTO users (username, email, password_hash)
+      VALUES (${username}, ${email}, ${password_hash})
       RETURNING id, username, email, vorname, nachname
     `;
     const user = result.rows[0];
@@ -24,7 +32,7 @@ module.exports = async function handler(req, res) {
     return res.status(201).json({ token, user });
   } catch (err) {
     if (err.message.includes('unique')) {
-      return res.status(409).json({ error: 'Benutzername oder E-Mail bereits vergeben.' });
+      return res.status(409).json({ error: 'Diese E-Mail ist bereits registriert.' });
     }
     console.error(err);
     return res.status(500).json({ error: 'Serverfehler' });

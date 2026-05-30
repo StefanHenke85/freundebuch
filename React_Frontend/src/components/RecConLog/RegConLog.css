@@ -145,3 +145,47 @@
 }
 
 .auth-meldung.fehler { color: #8b2020; }
+
+.auth-links-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  font-size: 0.82rem;
+}
+
+.auth-links-row a { color: #5c3a1e; text-decoration: none; }
+.auth-links-row a:hover { text-decoration: underline; }
+.auth-link-klein { color: #a0856a !important; }
+
+.auth-code-box {
+  background: #f0e6d6;
+  border: 1px solid #d4b896;
+  border-radius: 6px;
+  padding: 0.8rem 1rem;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.auth-code-label {
+  font-size: 0.75rem;
+  color: #8b5e3c;
+  font-style: italic;
+  margin: 0 0 0.3rem 0;
+}
+
+.auth-code-wert {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #3a2510;
+  letter-spacing: 4px;
+  margin: 0;
+  font-family: monospace;
+}
+
+.auth-code-hinweis {
+  font-size: 0.7rem;
+  color: #a0856a;
+  font-style: italic;
+  margin: 0.3rem 0 0 0;
+}

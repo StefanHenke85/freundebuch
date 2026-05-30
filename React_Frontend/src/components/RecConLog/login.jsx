@@ -4,65 +4,57 @@ import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.jsx";
 
 const Login = () => {
-  const [form, setForm] = useState({ username: "", password: "" });
-  const [meldung, setMeldung] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [meldung, setMeldung] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { login } = useAuth();
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    setMeldung("");
+    setLoading(true); setMeldung('');
     try {
       const res = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ username: email, password }),
       });
       const data = await res.json();
       if (!res.ok) { setMeldung(data.error || 'Login fehlgeschlagen.'); return; }
       login(data.token, data.user);
-      navigate("/Profil");
-    } catch {
-      setMeldung("Verbindungsfehler. Bitte versuche es erneut.");
-    } finally {
-      setLoading(false);
-    }
+      navigate('/MeineEvents');
+    } catch { setMeldung('Verbindungsfehler. Bitte erneut versuchen.'); }
+    finally { setLoading(false); }
   };
 
   return (
     <div className="auth-page">
       <img className="auth-bg-book" src="/img/BraunesBuch.png" alt="" />
       <img className="auth-bg-feder" src="/img/feder.png" alt="" />
-
       <div className="auth-card">
         <h1 className="auth-titel">Freundebuch</h1>
-        <p className="auth-untertitel">Melde dich an</p>
-
+        <p className="auth-untertitel">Willkommen zurück</p>
         <form className="auth-form" onSubmit={handleSubmit}>
           <label className="auth-label">
-            Benutzername
-            <input className="auth-input" type="text" name="username"
-              value={form.username} onChange={handleChange} required autoFocus />
+            E-Mail-Adresse
+            <input className="auth-input" type="email" value={email}
+              onChange={e => setEmail(e.target.value)} placeholder="du@beispiel.de" required autoFocus />
           </label>
           <label className="auth-label">
             Passwort
-            <input className="auth-input" type="password" name="password"
-              value={form.password} onChange={handleChange} required />
+            <input className="auth-input" type="password" value={password}
+              onChange={e => setPassword(e.target.value)} placeholder="••••••••" required />
           </label>
           <button className="auth-btn" type="submit" disabled={loading}>
-            {loading ? "Wird angemeldet…" : "Anmelden"}
+            {loading ? 'Wird angemeldet…' : 'Anmelden'}
           </button>
         </form>
-
-        {meldung && <p className={`auth-meldung ${meldung.includes('fehler') || meldung.includes('Fehler') ? 'fehler' : ''}`}>{meldung}</p>}
-
-        <p className="auth-link-zeile">
-          Noch kein Konto? <Link to="/register">Jetzt registrieren</Link>
-        </p>
+        {meldung && <p className="auth-meldung fehler">{meldung}</p>}
+        <div className="auth-links-row">
+          <Link to="/passwort-vergessen" className="auth-link-klein">Passwort vergessen?</Link>
+          <Link to="/register">Neu registrieren</Link>
+        </div>
       </div>
     </div>
   );

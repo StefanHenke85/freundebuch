@@ -35,10 +35,11 @@ import Chat from "./components/Chat/chat.jsx";
 import FreundEintrag from "./components/FreundEintrag/FreundEintrag.jsx";
 import DruckAnsicht from "./components/DruckAnsicht/DruckAnsicht.jsx";
 import MeineEvents from "./components/MeineEvents/MeineEvents.jsx";
+import PasswortVergessen from "./components/RecConLog/PasswortVergessen.jsx";
 
 function App() {
   const location = useLocation();
-  const hideHeaderRoutes = ['/', '/Home', '/login', '/register'];
+  const hideHeaderRoutes = ['/', '/Home', '/login', '/register', '/passwort-vergessen'];
   const hideHeaderPrefixes = ['/freund/', '/drucken'];
 
   const versteckt = hideHeaderRoutes.includes(location.pathname) ||
@@ -77,6 +78,7 @@ function App() {
 
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/passwort-vergessen" element={<PasswortVergessen />} />
 
         <Route path="/chat" element={<Chat />} />
         <Route path="/freund/:linkId" element={<FreundEintrag />} />
