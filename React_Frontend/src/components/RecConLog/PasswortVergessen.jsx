@@ -45,7 +45,7 @@ const PasswortVergessen = () => {
       const data = await res.json();
       if (!res.ok) { setMeldung(data.error || 'Fehler.'); return; }
       login(data.token, data.user);
-      navigate('/MeineEvents');
+      navigate('/dashboard');
     } catch { setMeldung('Verbindungsfehler.'); }
     finally { setLoading(false); }
   };

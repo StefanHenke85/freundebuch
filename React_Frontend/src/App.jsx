@@ -36,10 +36,11 @@ import FreundEintrag from "./components/FreundEintrag/FreundEintrag.jsx";
 import DruckAnsicht from "./components/DruckAnsicht/DruckAnsicht.jsx";
 import MeineEvents from "./components/MeineEvents/MeineEvents.jsx";
 import PasswortVergessen from "./components/RecConLog/PasswortVergessen.jsx";
+import Dashboard from "./components/Dashboard/Dashboard.jsx";
 
 function App() {
   const location = useLocation();
-  const hideHeaderRoutes = ['/', '/Home', '/login', '/register', '/passwort-vergessen'];
+  const hideHeaderRoutes = ['/', '/Home', '/login', '/register', '/passwort-vergessen', '/dashboard'];
   const hideHeaderPrefixes = ['/freund/', '/drucken'];
 
   const versteckt = hideHeaderRoutes.includes(location.pathname) ||
@@ -76,6 +77,7 @@ function App() {
 
         <Route path="/Profil" element={<Profil1 />} />
 
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/passwort-vergessen" element={<PasswortVergessen />} />

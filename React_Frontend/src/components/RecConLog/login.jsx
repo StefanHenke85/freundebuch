@@ -23,7 +23,7 @@ const Login = () => {
       const data = await res.json();
       if (!res.ok) { setMeldung(data.error || 'Login fehlgeschlagen.'); return; }
       login(data.token, data.user);
-      navigate('/MeineEvents');
+      navigate('/dashboard');
     } catch { setMeldung('Verbindungsfehler. Bitte erneut versuchen.'); }
     finally { setLoading(false); }
   };

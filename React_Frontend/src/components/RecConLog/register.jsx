@@ -36,7 +36,7 @@ const Register = () => {
       if (eventTyp) {
         navigate(`/event-erstellen?typ=${eventTyp}&name=${encodeURIComponent(eventName)}`);
       } else {
-        navigate('/Profil');
+        navigate('/dashboard');
       }
     } catch { setMeldung('Verbindungsfehler. Bitte erneut versuchen.'); }
     finally { setLoading(false); }
