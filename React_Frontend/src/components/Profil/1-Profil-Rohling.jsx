@@ -6,7 +6,7 @@ import "./Profil-Design.css";
 const Profil1 = () => {
   const { token, user } = useAuth();
   const navigate = useNavigate();
-  const [form, setForm] = useState({ wohnort: '', telefon: '', beschreibung: '' });
+  const [form, setForm] = useState({ wohnort: '', telefon: '', beschreibung: '', geburtsdatum: '', adresse: '' });
   const [gespeichert, setGespeichert] = useState(false);
   const [loading, setLoading] = useState(true);
   const [profilbild, setProfilbild] = useState(null);
@@ -21,7 +21,13 @@ const Profil1 = () => {
     fetch('/api/profil', { headers: { Authorization: `Bearer ${token}` } })
       .then(r => r.json())
       .then(data => {
-        setForm({ wohnort: data.wohnort || '', telefon: data.telefon || '', beschreibung: data.beschreibung || '' });
+        setForm({
+          wohnort: data.wohnort || '',
+          telefon: data.telefon || '',
+          beschreibung: data.beschreibung || '',
+          geburtsdatum: data.geburtsdatum ? data.geburtsdatum.split('T')[0] : '',
+          adresse: data.adresse || '',
+        });
         setLoading(false);
       })
       .catch(() => setLoading(false));
@@ -154,7 +160,13 @@ const Profil1 = () => {
             </p>
             <p className="profil-zeile">
               <span>Geburtstag:</span>
-              <strong>{user?.geburtsdatum || '—'}</strong>
+              <input className="profil-input" type="date" value={form.geburtsdatum}
+                onChange={e => setForm({ ...form, geburtsdatum: e.target.value })} />
+            </p>
+            <p className="profil-zeile">
+              <span>Adresse:</span>
+              <input className="profil-input" type="text" value={form.adresse}
+                onChange={e => setForm({ ...form, adresse: e.target.value })} placeholder="Adresse" />
             </p>
           </div>
         </div>
