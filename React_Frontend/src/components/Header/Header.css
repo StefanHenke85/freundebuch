@@ -3,7 +3,9 @@
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 2%;
+    padding: 0.8rem 2%;
+    background: linear-gradient(to right, #3a2510, #5c3a1e);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
 }
 
 
@@ -14,11 +16,10 @@
 }
 
 #logoH {
-    position: fixed;
-    top:0%;
-    left: 54.4%;
-    width: 10%;
-    height: fit-content;
+    font-family: 'Georgia', serif;
+    font-size: 1.1rem;
+    color: #f5efe6;
+    letter-spacing: 1px;
 }
 
 

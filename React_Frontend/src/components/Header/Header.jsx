@@ -55,7 +55,7 @@ const Header = () => {
         </div>
       )}
       <div className="logo">
-        <img id="logoH" src="/img/logo.png" alt="logo" />
+        <span id="logoH">📖 Freundebuch</span>
       </div>
       <div className="search-bar">
         <input type="text" placeholder="🔍" name="search" />

@@ -1,276 +1,112 @@
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Georgia&display=swap");
+
 #browndiv {
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #1a0d00 0%, #3a1f0a 50%, #1a0d00 100%);
+  position: relative;
+  overflow: hidden;
   display: flex;
-  justify-content: center;
   align-items: center;
-  height: 100%;
-  width: 100%;
-  flex-direction: column;
+  justify-content: center;
 }
 
-#homelogo {
-  position: absolute;
-  width: 15%;
-  right: 80%;
-  top: 0%;
+.home-overlay {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #Brownbook {
   position: absolute;
-  top: -10%;
-  width: 70%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 65%;
+  max-width: 700px;
+  opacity: 0.35;
+  filter: sepia(30%);
 }
 
 #federhome {
   position: absolute;
-  width: 26%;
-  top: 15%;
-  right: 15%;
-  opacity: 0.5;
+  width: 18%;
+  max-width: 180px;
+  top: 8%;
+  right: 8%;
+  opacity: 0.25;
+  transform: rotate(15deg);
+  filter: sepia(50%);
+}
+
+.home-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }
 
 #h1Home {
-  display: inline-block;
-  position: absolute;
-  top: 20%;
-  left: 38%;
-  transform: rotate(-15deg);
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(2.5rem, 7vw, 5rem);
+  color: #f5efe6;
+  margin: 0;
+  text-shadow: 2px 4px 20px rgba(0,0,0,0.8), 0 0 40px rgba(139,94,60,0.4);
+  letter-spacing: 3px;
 }
 
-#LoginHome {
-  position: absolute;
-  top: 37%;
-  right: 52.6%;
-  transform: rotate(-15deg);
-  font-size: 25px;
-  font-family: "Dancing Script", Arial, Helvetica, sans-serif;
-  background-color: inherit;
-  border: 5px solid inherit;
-  border-radius: 50px;
-  cursor: pointer;
-  width: fit-content;
-  height: fit-content;
+.home-subtitle {
+  font-family: 'Georgia', serif;
+  font-size: clamp(0.9rem, 2vw, 1.2rem);
+  color: #c4a882;
+  font-style: italic;
+  margin: 0;
+  letter-spacing: 2px;
 }
 
-#RegistrierungHome {
-  position: absolute;
-  bottom: 45%;
-  right: 49%;
-  transform: rotate(-15deg);
-  font-size: 25px;
-  font-family: "Dancing Script", Arial, Helvetica, sans-serif;
-  background-color: inherit;
-  border: 5px solid inherit;
-  border-radius: 50px;
-  cursor: pointer;
-  width: fit-content;
-  height: fit-content;
+.home-buttons {
+  display: flex;
+  gap: 1.2rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-@media (max-width: 1321px) {
-  #Brownbook {
-    position: absolute;
-    top: -10%;
-    width: 70%;
-  }
-
-  #h1Home {
-    top: 15%;
-  }
-
-  #RegistrierungHome {
-    left: 42%;
-  }
-
-  #federhome {
-    width: 26%;
-    top: 10%;
-  }
-
-  #LoginHome {
-    top: 34%;
-    left: 43%;
-  }
-
-  #homelogo {
-    width: 15%;
-  }
+.home-btn {
+  background: #8b5e3c;
+  color: #f5efe6;
+  text-decoration: none;
+  padding: 0.7rem 2.5rem;
+  border-radius: 4px;
+  font-family: 'Georgia', serif;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  transition: background 0.2s, transform 0.1s;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
 }
 
-@media (max-width: 1205px) {
-  #Brownbook {
-    width: 70%;
-    top: 0%;
-  }
-
-  #h1Home {
-    top: 20%;
-    left: 37%;
-  }
-
-  #RegistrierungHome {
-    top: 52%;
-    left: 42%;
-  }
-
-  #federhome {
-    width: 26%;
-    top: 15%;
-  }
-
-  #LoginHome {
-    top: 37%;
-    left: 43%;
-  }
+.home-btn:hover {
+  background: #a0724a;
+  transform: translateY(-2px);
 }
 
-@media (max-width: 1050px) {
-  #Brownbook {
-    width: 80%;
-    top: 0%;
-  }
-
-  #h1Home {
-    top: 23%;
-    left: 35%;
-  }
-
-  #RegistrierungHome {
-    top: 52%;
-    left: 41%;
-  }
-
-  #federhome {
-    width: 26%;
-    top: 22%;
-  }
-
-  #LoginHome {
-    top: 38%;
-    left: 42%;
-  }
+.home-btn-outline {
+  background: transparent;
+  border: 2px solid #8b5e3c;
+  color: #c4a882;
 }
 
-@media (max-width: 981px) {
-  #Brownbook {
-    width: 80%;
-    top: 0%;
-  }
-
-  #h1Home {
-    top: 23%;
-    left: 35%;
-  }
-
-  #federhome {
-    width: 26%;
-    top: 25%;
-  }
-
-  #LoginHome {
-    top: 38%;
-    left: 41%;
-  }
-
-  #RegistrierungHome {
-    top: 50%;
-    left: 41%;
-  }
+.home-btn-outline:hover {
+  background: rgba(139,94,60,0.2);
 }
 
-@media (max-width: 910px) {
-  #Brownbook {
-    width: 100%;
-    top: 0%;
-  }
-
-  #federhome {
-    width: 26%;
-    left: 62%;
-    top: 34%;
-  }
-
-  #h1Home {
-    top: 25%;
-    left: 31%;
-  }
-
-  #LoginHome {
-    top: 37%;
-    left: 39%;
-  }
-  #RegistrierungHome {
-    top: 47%;
-    left: 37%;
-  }
+@media (max-width: 600px) {
+  #Brownbook { width: 95%; opacity: 0.25; }
+  #federhome { display: none; }
 }
-
-
-@media (max-width: 687px) {
-  #Brownbook {
-    width: 100%;
-    top: 10%;
-  }
-
-  #federhome {
-    width: 25%;
-    height: 40%;
-    top: 23%;
-    left: 62%;
-  }
-
-  #h1Home {
-    top: 27%;
-    left: 32%;
-    font-size: 25px;
-  }
-
-  #LoginHome {
-    top: 39%;
-    left: 40%;
-    font-size: 20px;
-  }
-
-  #RegistrierungHome {
-    top: 49%;
-    left: 38%;
-    font-size: 20px;
-  }
-}
-
-
-
-@media (max-width: 580px) {
-  #Brownbook {
-    width: 100%;
-    top: 10%;
-  }
-
-  #federhome {
-    width: 25%;
-    height: 40%;
-    top: 16%;
-    left: 62%;
-  }
-
-  #h1Home {
-    top: 22%;
-    left: 31%;
-    font-size: 22px;
-  }
-
-  #LoginHome {
-    top: 32%;
-    left: 39%;
-    font-size: 20px;
-  }
-
-  #RegistrierungHome {
-    top: 41%;
-    left: 36%;
-    font-size: 20px;
-  }
-}
-
-
-
-
