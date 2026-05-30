@@ -21,14 +21,6 @@ const Page = React.forwardRef((props, ref) => {
 function DemoBook() {
 
 
-  const [windowSize, setWindowsSize] = useState({width: undefined, height: undefined})
-
-  useEffect(() => {
-    
-    window.addEventListener("resize", () => {
-      setWindowsSize({width: window.innerWidth, height : window.innerHeight})
-    })
-  }, [])
 
  
 
@@ -54,27 +46,6 @@ function DemoBook() {
       .catch(error => console.error('Error fetching answers:', error));
   }, []);
 
-  const handleSaveAnswers = () => {
-    const answersToSave = fragen.map((frage, index) => ({
-      frage: frage.frage,
-      antwort: antworten[index]?.antwort || ''
-    }));
-
-    fetch('http://localhost:3001/antworten', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ profil_id: profilId, antworten: answersToSave })
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Antworten erfolgreich gespeichert:', data);
-      })
-      .catch(error => {
-        console.error('Error saving answers:', error);
-      });
-  };
 
         
 
