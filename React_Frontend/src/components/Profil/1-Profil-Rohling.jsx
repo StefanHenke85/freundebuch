@@ -11,6 +11,7 @@ const Profil1 = () => {
   const [loading, setLoading] = useState(true);
   const [profilbild, setProfilbild] = useState(null);
   const [kameraAktiv, setKameraAktiv] = useState(false);
+  const [kameraFehler, setKameraFehler] = useState('');
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const streamRef = useRef(null);
@@ -21,7 +22,6 @@ const Profil1 = () => {
       .then(r => r.json())
       .then(data => {
         setForm({ wohnort: data.wohnort || '', telefon: data.telefon || '', beschreibung: data.beschreibung || '' });
-        if (data.profilbild) setProfilbild(data.profilbild);
         setLoading(false);
       })
       .catch(() => setLoading(false));
@@ -29,6 +29,13 @@ const Profil1 = () => {
     const gespeichertBild = localStorage.getItem('fb_profilbild');
     if (gespeichertBild) setProfilbild(gespeichertBild);
   }, [token, navigate]);
+
+  // Video-Stream in das video-Element laden sobald Kamera aktiv ist
+  useEffect(() => {
+    if (kameraAktiv && videoRef.current && streamRef.current) {
+      videoRef.current.srcObject = streamRef.current;
+    }
+  }, [kameraAktiv]);
 
   const handleDateiWahl = (e) => {
     const datei = e.target.files[0];
@@ -42,13 +49,13 @@ const Profil1 = () => {
   };
 
   const kameraStarten = useCallback(async () => {
+    setKameraFehler('');
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } });
+      const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: false });
       streamRef.current = stream;
-      if (videoRef.current) videoRef.current.srcObject = stream;
       setKameraAktiv(true);
-    } catch {
-      alert('Kamera konnte nicht geöffnet werden.');
+    } catch (err) {
+      setKameraFehler('Kamera nicht verfügbar: ' + err.message);
     }
   }, []);
 
@@ -64,8 +71,8 @@ const Profil1 = () => {
     const video = videoRef.current;
     const canvas = canvasRef.current;
     if (!video || !canvas) return;
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
+    canvas.width = video.videoWidth || 400;
+    canvas.height = video.videoHeight || 300;
     canvas.getContext('2d').drawImage(video, 0, 0);
     const bild = canvas.toDataURL('image/jpeg', 0.8);
     setProfilbild(bild);
@@ -88,37 +95,46 @@ const Profil1 = () => {
     }
   };
 
-  if (loading) return <div style={{ textAlign: 'center', marginTop: '4rem' }}>Laden...</div>;
+  if (loading) return <div className="profil-laden">Laden…</div>;
 
   return (
     <div className="profil-buch-wrapper">
       <div className="profil-buch">
-        {/* Linke Seite: Bild + Infos */}
+
+        {/* Linke Seite */}
         <div className="profil-links">
           <div className="profil-bild-bereich">
             {profilbild
               ? <img src={profilbild} alt="Profilbild" className="profil-bild-vorschau" />
-              : <div className="profil-bild-platzhalter">📷</div>
+              : <div className="profil-bild-platzhalter"><span>Kein Bild</span></div>
             }
 
             {kameraAktiv ? (
               <div className="kamera-bereich">
-                <video ref={videoRef} autoPlay playsInline className="kamera-video" />
+                <video
+                  ref={videoRef}
+                  autoPlay
+                  playsInline
+                  muted
+                  className="kamera-video"
+                />
                 <canvas ref={canvasRef} style={{ display: 'none' }} />
+                {kameraFehler && <p className="kamera-fehler">{kameraFehler}</p>}
                 <div className="kamera-buttons">
-                  <button type="button" className="profil-btn" onClick={fotoMachen}>📸 Foto machen</button>
-                  <button type="button" className="profil-btn profil-btn-grau" onClick={kameraStoppen}>Abbrechen</button>
+                  <button type="button" className="profil-btn" onClick={fotoMachen}>📸 Foto</button>
+                  <button type="button" className="profil-btn profil-btn-grau" onClick={kameraStoppen}>✕ Abbrechen</button>
                 </div>
               </div>
             ) : (
               <div className="bild-optionen">
                 <button type="button" className="profil-btn" onClick={kameraStarten}>📷 Kamera</button>
                 <label className="profil-btn">
-                  🖼 Datei wählen
+                  🖼 Datei
                   <input type="file" accept="image/*" onChange={handleDateiWahl} style={{ display: 'none' }} />
                 </label>
               </div>
             )}
+            {kameraFehler && !kameraAktiv && <p className="kamera-fehler">{kameraFehler}</p>}
           </div>
 
           <div className="profil-infos">
@@ -143,20 +159,18 @@ const Profil1 = () => {
           </div>
         </div>
 
-        {/* Rechte Seite: Über mich */}
+        {/* Rechte Seite */}
         <div className="profil-rechts">
           <h2 className="profil-ueber-titel">Über mich</h2>
-          <form onSubmit={handleSave} style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+          <form onSubmit={handleSave} className="profil-form">
             <textarea
               className="profil-textarea"
-              placeholder="Schreib etwas über dich..."
+              placeholder="Schreib etwas über dich…"
               value={form.beschreibung}
               onChange={e => setForm({ ...form, beschreibung: e.target.value })}
             />
-            <div style={{ marginTop: 'auto', textAlign: 'center' }}>
-              {gespeichert && <p className="profil-gespeichert">✓ Gespeichert</p>}
-              <button type="submit" className="profil-btn profil-btn-speichern">Speichern</button>
-            </div>
+            {gespeichert && <p className="profil-gespeichert">✓ Gespeichert</p>}
+            <button type="submit" className="profil-btn profil-btn-speichern">Speichern</button>
           </form>
         </div>
       </div>
