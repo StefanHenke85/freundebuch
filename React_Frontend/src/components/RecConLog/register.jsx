@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./RegConLog.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.jsx";
 
 const Register = () => {
@@ -8,7 +8,7 @@ const Register = () => {
     username: "", vorname: "", nachname: "",
     email: "", geburtsdatum: "", adresse: "", password: "",
   });
-  const [message, setMessage] = useState("");
+  const [meldung, setMeldung] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { login } = useAuth();
@@ -18,7 +18,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setMessage("");
+    setMeldung("");
     try {
       const res = await fetch('/api/auth/register', {
         method: 'POST',
@@ -26,55 +26,55 @@ const Register = () => {
         body: JSON.stringify(form),
       });
       const data = await res.json();
-      if (!res.ok) { setMessage(data.error || 'Fehler bei der Registrierung.'); return; }
+      if (!res.ok) { setMeldung(data.error || 'Fehler bei der Registrierung.'); return; }
       login(data.token, data.user);
-      setMessage("Registrierung erfolgreich! Du wirst weitergeleitet...");
-      setTimeout(() => navigate("/Profil"), 1500);
+      navigate("/Profil");
     } catch {
-      setMessage("Verbindungsfehler. Bitte versuche es erneut.");
+      setMeldung("Verbindungsfehler. Bitte versuche es erneut.");
     } finally {
       setLoading(false);
     }
   };
 
+  const felder = [
+    { label: "Benutzername", name: "username", type: "text" },
+    { label: "Vorname", name: "vorname", type: "text" },
+    { label: "Nachname", name: "nachname", type: "text" },
+    { label: "E-Mail", name: "email", type: "email" },
+    { label: "Geburtsdatum", name: "geburtsdatum", type: "date" },
+    { label: "Adresse", name: "adresse", type: "text" },
+    { label: "Passwort", name: "password", type: "password" },
+  ];
+
   return (
-    <main className="main-content1">
-      <div>
-        <img className="Book-Background1" src="/img/book.png" alt="Book Background" />
-        <img className="feder1" src="/img/feder.png" alt="Feder" />
-      </div>
-      <div className="register-container">
-        <h1 className="Headline1">Registrieren</h1>
-        <form className="register-form" onSubmit={handleSubmit}>
-          {[
-            { label: "Benutzername", name: "username", type: "text" },
-            { label: "Vorname", name: "vorname", type: "text" },
-            { label: "Nachname", name: "nachname", type: "text" },
-            { label: "E-Mail", name: "email", type: "email" },
-            { label: "Geburtsdatum", name: "geburtsdatum", type: "date" },
-            { label: "Adresse", name: "adresse", type: "text" },
-            { label: "Passwort", name: "password", type: "password" },
-          ].map(({ label, name, type }) => (
-            <label key={name} htmlFor={name}>
-              {label}:
-              <input
-                className="input-field"
-                type={type}
-                id={name}
-                name={name}
-                value={form[name]}
-                onChange={handleChange}
-                required
-              />
+    <div className="auth-page">
+      <img className="auth-bg-book" src="/img/BraunesBuch.png" alt="" />
+      <img className="auth-bg-feder" src="/img/feder.png" alt="" />
+
+      <div className="auth-card" style={{ maxWidth: '480px' }}>
+        <h1 className="auth-titel">Freundebuch</h1>
+        <p className="auth-untertitel">Erstelle dein Konto</p>
+
+        <form className="auth-form" onSubmit={handleSubmit}>
+          {felder.map(({ label, name, type }) => (
+            <label key={name} className="auth-label">
+              {label}
+              <input className="auth-input" type={type} name={name}
+                value={form[name]} onChange={handleChange} required />
             </label>
           ))}
-          <button type="submit" className="register-button" disabled={loading}>
-            {loading ? "Wird registriert..." : "Registrieren"}
+          <button className="auth-btn" type="submit" disabled={loading}>
+            {loading ? "Wird registriert…" : "Registrieren"}
           </button>
         </form>
-        {message && <p className="message">{message}</p>}
+
+        {meldung && <p className={`auth-meldung ${meldung.includes('fehler') || meldung.includes('Fehler') ? 'fehler' : ''}`}>{meldung}</p>}
+
+        <p className="auth-link-zeile">
+          Bereits ein Konto? <Link to="/login">Anmelden</Link>
+        </p>
       </div>
-    </main>
+    </div>
   );
 };
 

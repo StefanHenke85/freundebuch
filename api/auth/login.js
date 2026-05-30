@@ -14,7 +14,7 @@ module.exports = async function handler(req, res) {
   try {
     const result = await sql`
       SELECT id, username, email, vorname, nachname, password_hash
-      FROM users WHERE username = ${username}
+      FROM users WHERE username = ${username} OR email = ${username}
     `;
     const user = result.rows[0];
 

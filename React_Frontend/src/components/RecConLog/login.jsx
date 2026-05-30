@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import "./RegConLog.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.jsx";
 
 const Login = () => {
   const [form, setForm] = useState({ username: "", password: "" });
-  const [message, setMessage] = useState("");
+  const [meldung, setMeldung] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { login } = useAuth();
@@ -15,7 +15,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setMessage("");
+    setMeldung("");
     try {
       const res = await fetch('/api/auth/login', {
         method: 'POST',
@@ -23,60 +23,48 @@ const Login = () => {
         body: JSON.stringify(form),
       });
       const data = await res.json();
-      if (!res.ok) { setMessage(data.error || 'Login fehlgeschlagen.'); return; }
+      if (!res.ok) { setMeldung(data.error || 'Login fehlgeschlagen.'); return; }
       login(data.token, data.user);
-      setMessage("Login erfolgreich! Du wirst weitergeleitet...");
-      setTimeout(() => navigate("/Profil"), 1500);
+      navigate("/Profil");
     } catch {
-      setMessage("Verbindungsfehler. Bitte versuche es erneut.");
+      setMeldung("Verbindungsfehler. Bitte versuche es erneut.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <main className="main-content1">
-      <div>
-        <img className="Book-Background2" src="/img/book.png" alt="Book Background" />
-        <img className="feder2" src="/img/feder.png" alt="Feder" />
-      </div>
-      <div className="register-container1">
-        <h1 className="Headline1">Login</h1>
-        <form className="register-form" onSubmit={handleSubmit}>
-          <label htmlFor="username">
-            Benutzername:
-            <input
-              className="input-field"
-              type="text"
-              id="username"
-              name="username"
-              value={form.username}
-              onChange={handleChange}
-              required
-            />
+    <div className="auth-page">
+      <img className="auth-bg-book" src="/img/BraunesBuch.png" alt="" />
+      <img className="auth-bg-feder" src="/img/feder.png" alt="" />
+
+      <div className="auth-card">
+        <h1 className="auth-titel">Freundebuch</h1>
+        <p className="auth-untertitel">Melde dich an</p>
+
+        <form className="auth-form" onSubmit={handleSubmit}>
+          <label className="auth-label">
+            Benutzername
+            <input className="auth-input" type="text" name="username"
+              value={form.username} onChange={handleChange} required autoFocus />
           </label>
-          <label htmlFor="password">
-            Passwort:
-            <input
-              className="input-field"
-              type="password"
-              id="password"
-              name="password"
-              value={form.password}
-              onChange={handleChange}
-              required
-            />
+          <label className="auth-label">
+            Passwort
+            <input className="auth-input" type="password" name="password"
+              value={form.password} onChange={handleChange} required />
           </label>
-          <button type="submit" className="register-button" disabled={loading}>
-            {loading ? "Wird eingeloggt..." : "Login"}
+          <button className="auth-btn" type="submit" disabled={loading}>
+            {loading ? "Wird angemeldet…" : "Anmelden"}
           </button>
         </form>
-        {message && <p className="message">{message}</p>}
-        <p style={{ marginTop: '1rem', textAlign: 'center' }}>
-          Noch kein Konto? <a href="/register">Jetzt registrieren</a>
+
+        {meldung && <p className={`auth-meldung ${meldung.includes('fehler') || meldung.includes('Fehler') ? 'fehler' : ''}`}>{meldung}</p>}
+
+        <p className="auth-link-zeile">
+          Noch kein Konto? <Link to="/register">Jetzt registrieren</Link>
         </p>
       </div>
-    </main>
+    </div>
   );
 };
 
