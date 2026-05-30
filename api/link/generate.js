@@ -24,7 +24,11 @@ module.exports = async function handler(req, res) {
       INSERT INTO share_links (user_id) VALUES (${userId}) RETURNING id
     `;
     const linkId = result.rows[0].id;
-    const base = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000';
+    const base = process.env.VERCEL_PROJECT_PRODUCTION_URL
+      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+      : process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : 'http://localhost:3000';
     return res.status(200).json({ link: `${base}/freund/${linkId}` });
   } catch (err) {
     console.error(err);

@@ -31,17 +31,22 @@ import Profil1 from "./components/Profil/1-Profil-Rohling.jsx";
 
 import Book from "./components/MeineFreundeSeite/MeineFreundeSeite.jsx";
 
-import Chat from "./components/Chat/chat.jsx"; // Importiert die Chat-Komponente
+import Chat from "./components/Chat/chat.jsx";
+import FreundEintrag from "./components/FreundEintrag/FreundEintrag.jsx";
+import DruckAnsicht from "./components/DruckAnsicht/DruckAnsicht.jsx";
 
 function App() {
   const location = useLocation();
   const hideHeaderRoutes = ['/', '/Home', '/login', '/register'];
+  const hideHeaderPrefixes = ['/freund/', '/drucken'];
 
-  const zeigeFooter = !hideHeaderRoutes.includes(location.pathname);
+  const versteckt = hideHeaderRoutes.includes(location.pathname) ||
+    hideHeaderPrefixes.some(p => location.pathname.startsWith(p));
+  const zeigeFooter = !versteckt;
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-      {!hideHeaderRoutes.includes(location.pathname) && <Header />}
+      {!versteckt && <Header />}
       <div style={{ flex: 1 }}>
       <Routes>
         <Route path="/Home" element={<Home />} />
@@ -72,6 +77,8 @@ function App() {
         <Route path="/register" element={<Register />} />
 
         <Route path="/chat" element={<Chat />} />
+        <Route path="/freund/:linkId" element={<FreundEintrag />} />
+        <Route path="/drucken" element={<DruckAnsicht />} />
       </Routes>
       </div>
       {zeigeFooter && <Footer />}

@@ -36,6 +36,7 @@ const Header = () => {
           <li><Link className="nav-button" to="/1-Freunde">Freundebuch</Link></li>
           <li><a href="/" className="nav-button" onClick={generateLink}>Mein Freundebuch teilen</a></li>
           <li><Link className="nav-button" to="/MeineFreunde">Meine Freunde</Link></li>
+          <li><Link className="nav-button" to="/drucken">🖨️ Drucken</Link></li>
           {user && (
             <li>
               <button className="nav-button" onClick={handleLogout} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>

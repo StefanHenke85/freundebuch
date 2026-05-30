@@ -1,0 +1,190 @@
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Georgia&display=swap");
+
+.druck-wrapper {
+  background: #f5efe6;
+  min-height: 100vh;
+  padding: 2rem;
+  font-family: 'Georgia', serif;
+}
+
+.druck-aktionen {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  justify-content: center;
+}
+
+.druck-btn {
+  background: #8b5e3c;
+  color: #f5efe6;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 4px;
+  font-family: 'Georgia', serif;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.druck-btn:hover { background: #5c3a1e; }
+.druck-btn-grau { background: #a0856a; }
+
+.druck-laden { text-align: center; padding: 4rem; color: #5c3a1e; font-style: italic; }
+
+.druck-buch {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.druck-seite {
+  background: #fdf8f0;
+  border: 1px solid #d4b896;
+  border-radius: 4px;
+  padding: 3rem;
+  position: relative;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  min-height: 400px;
+  background-image: repeating-linear-gradient(
+    transparent, transparent 39px, #e8d5c0 39px, #e8d5c0 40px
+  );
+  background-position: 0 4rem;
+}
+
+.druck-titelseite {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-image: none;
+  background: linear-gradient(135deg, #8b5e3c, #5c3a1e);
+  color: #f5efe6;
+  min-height: 300px;
+}
+
+.druck-haupttitel {
+  font-family: 'Dancing Script', cursive;
+  font-size: 3rem;
+  margin: 0;
+  letter-spacing: 3px;
+}
+
+.druck-name {
+  font-size: 1.3rem;
+  margin: 0.5rem 0;
+  opacity: 0.9;
+}
+
+.druck-datum {
+  font-size: 1rem;
+  opacity: 0.7;
+  font-style: italic;
+  margin: 0;
+}
+
+.druck-seite-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #d4b896;
+}
+
+.druck-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #8b5e3c;
+  color: #f5efe6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.druck-freund-name {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.6rem;
+  color: #5c3a1e;
+  margin: 0;
+}
+
+.druck-datum-klein {
+  font-size: 0.75rem;
+  color: #a0856a;
+  font-style: italic;
+  margin: 0.2rem 0 0 0;
+}
+
+.druck-antworten {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem 2rem;
+}
+
+.druck-antwort-item {
+  border-left: 2px solid #d4b896;
+  padding-left: 0.7rem;
+}
+
+.druck-frage {
+  font-size: 0.72rem;
+  color: #8b5e3c;
+  font-weight: bold;
+  margin: 0 0 0.2rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.druck-antwort {
+  font-size: 0.88rem;
+  color: #3a2510;
+  font-style: italic;
+  margin: 0;
+}
+
+.druck-seite-nr {
+  position: absolute;
+  bottom: 1rem;
+  right: 1.5rem;
+  font-size: 0.75rem;
+  color: #b8996e;
+  font-style: italic;
+}
+
+.druck-leer {
+  text-align: center;
+  color: #a0856a;
+  font-style: italic;
+  background-image: none;
+}
+
+/* Druck-Styles */
+@media print {
+  .no-print { display: none !important; }
+
+  body { background: white; }
+
+  .druck-wrapper { padding: 0; background: white; }
+
+  .druck-seite {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    box-shadow: none;
+    border: 1px solid #ccc;
+    margin-bottom: 0;
+  }
+
+  .druck-buch { gap: 0; }
+
+  .druck-titelseite {
+    background: #5c3a1e !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}

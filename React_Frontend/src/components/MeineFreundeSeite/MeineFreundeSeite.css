@@ -1,222 +1,177 @@
-.book-container {
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Georgia&display=swap");
+
+.mf-wrapper {
+  min-height: calc(100vh - 120px);
+  background: #f5efe6;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 2rem;
+  font-family: 'Georgia', serif;
+}
+
+.mf-buch {
+  display: flex;
   width: 100%;
-  height: 100%;
+  max-width: 860px;
+  min-height: 560px;
+  box-shadow: 0 25px 70px rgba(0,0,0,0.25), -8px 0 0 #5c3a1e;
+  border-radius: 2px 8px 8px 2px;
+}
+
+.mf-links {
+  width: 260px;
+  flex-shrink: 0;
+  background: #fdf8f0;
+  border-right: 2px solid #d4b896;
+  padding: 1.5rem 1.2rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  position: absolute;
-  top: 8%;
+  gap: 0.8rem;
+  overflow-y: auto;
 }
 
-#bookinfriends {
-  width: 100%;
-  height: 75%;
+.mf-rechts {
+  flex: 1;
+  background: #fdf8f0;
+  padding: 1.5rem;
+  overflow-y: auto;
+  background-image: repeating-linear-gradient(
+    transparent, transparent 39px, #e8d5c0 39px, #e8d5c0 40px
+  );
+  background-position: 0 3rem;
+}
+
+.mf-titel {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.6rem;
+  color: #5c3a1e;
+  margin: 0;
+  text-align: center;
+  border-bottom: 1px solid #d4b896;
+  padding-bottom: 0.5rem;
+}
+
+.mf-anzahl {
+  font-size: 0.75rem;
+  color: #a0856a;
+  text-align: center;
+  font-style: italic;
+  margin: 0;
+}
+
+.mf-leer {
+  font-size: 0.85rem;
+  color: #8b5e3c;
+  font-style: italic;
+  line-height: 1.6;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.mf-liste {
+  list-style: none;
+  padding: 0;
+  margin: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  position: absolute;
-  top: 8%;
-  opacity: 0.5;
+  gap: 0.4rem;
 }
 
-.friends-grid {
+.mf-eintrag {
   display: flex;
-  flex-wrap: wrap;
-  width: 85%;
-  position: absolute;
-  top: 25%;
-  left: 18%;
-  justify-content: space-between;
-  box-sizing: border-box;
-}
-
-.right-side {
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  position: absolute;
-  top: 8%;
-  left: 39%;
+  gap: 0.7rem;
+  padding: 0.6rem 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.15s;
+  border-bottom: 1px solid #e8d5c0;
 }
 
-.left-side {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  position: absolute;
-  top: 8%;
-  left: 7%;
-}
+.mf-eintrag:hover { background: #f0e6d6; }
+.mf-eintrag-aktiv { background: #e8d5c0; }
 
-.left-side,
-.right-side {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 50px;
-}
-
-.friend img {
+.mf-avatar {
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  color: white;
+  background: #8b5e3c;
+  color: #f5efe6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: bold;
+  flex-shrink: 0;
 }
 
-#leftbtn1 {
-  position: absolute;
-  bottom: -185px;
-  left: 220px;
-  font-size: 15px;
-  font-family: "Dancing Script", Arial, Helvetica, sans-serif;
-  background-color: inherit;
-  border: none;
-  cursor: pointer;
-  color: black;
+.mf-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
 }
 
-#rightbtn1 {
-  position: absolute;
-  bottom: -185px;
-  right: 240px;
-  font-size: 15px;
-  background-color: inherit;
-  border: none;
-  font-family: "Dancing Script", Arial, Helvetica, sans-serif;
-  cursor: pointer;
-  color: black;
+.mf-info strong {
+  font-size: 0.88rem;
+  color: #3a2510;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-#leftbtn1:disabled,
-#rightbtn1:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+.mf-info span {
+  font-size: 0.72rem;
+  color: #a0856a;
+  font-style: italic;
 }
 
-@media (max-width: 1280px) {
-  .left-side {
-    left: 5%;
-  }
-
-  .right-side {
-    left: 40%;
-  }
+.mf-hinweis {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #a0856a;
+  font-style: italic;
+  font-size: 0.9rem;
 }
 
-@media (max-width: 1205px) {
-  .left-side {
-    left: %;
-    width: 20%;
-  }
-
-  .right-side {
-    left: 43%;
-    width: 20%;
-  }
+.mf-antworten-name {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.4rem;
+  color: #5c3a1e;
+  margin: 0 0 1rem 0;
+  border-bottom: 1px solid #d4b896;
+  padding-bottom: 0.5rem;
 }
 
-@media (max-width: 950px) {
-  #bookinfriends {
-    width: 120%;
-  }
-
-  .left-side {
-    left: 3%;
-    width: 0%;
-  }
-
-  .right-side {
-    left: 45%;
-    width: 0%;
-  }
+.mf-antworten-liste {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
-@media (max-width: 900px) {
-  .left-side {
-    left: 0%;
-    width: 0%;
-  }
-
-  .right-side {
-    left: 45%;
-    width: 0%;
-  }
-
-  #bookinfriends {
-    width: 130%;
-  }
+.mf-antwort-item {
+  border-left: 3px solid #d4b896;
+  padding-left: 0.8rem;
 }
 
-@media (max-width: 800px) {
-  .left-side {
-    left: -3%;
-    width: 0%;
-  }
-
-  .right-side {
-    left: 42%;
-    width: 0%;
-  }
-
-  #bookinfriends {
-    width: 130%;
-  }
+.mf-frage {
+  font-size: 0.78rem;
+  color: #8b5e3c;
+  font-weight: bold;
+  margin: 0 0 0.2rem 0;
 }
 
-@media (max-width: 690px) {
-  .left-side {
-    left: -7%;
-    width: 0%;
-    font-size: 12px;
-  }
-
-  .right-side {
-    left: 43%;
-    width: 0%;
-    font-size: 12px;
-  }
-
-  #bookinfriends {
-    width: 130%;
-  }
+.mf-antwort {
+  font-size: 0.9rem;
+  color: #3a2510;
+  font-style: italic;
+  margin: 0;
 }
 
-@media (max-width: 550px) {
-  .left-side {
-    left: -8%;
-    width: 0%;
-    font-size: 8px;
-  }
-
-  .right-side {
-    left: 44%;
-    width: 0%;
-    font-size: 8px;
-  }
-
-  #bookinfriends {
-    width: 130%;
-  }
-}
-
-@media (max-width: 460px) {
-  .left-side {
-    left: -10%;
-    width: 0%;
-    font-size: 8px;
-  }
-
-  .right-side {
-    left: 43%;
-    width: 0%;
-    font-size: 8px;
-  }
-
-  #bookinfriends {
-    width: 130%;
-  }
+@media (max-width: 700px) {
+  .mf-buch { flex-direction: column; }
+  .mf-links { width: 100%; border-right: none; border-bottom: 2px solid #d4b896; }
 }
