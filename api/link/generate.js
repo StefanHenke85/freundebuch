@@ -15,12 +15,12 @@ module.exports = async function handler(req, res) {
     return res.status(401).json({ error: 'Nicht eingeloggt.' });
   }
 
-  const { event_typ = 'eigener', event_name, event_datum } = req.body || {};
+  const { event_typ = 'eigener', event_name, event_datum, theme_id = 'braun' } = req.body || {};
 
   try {
     const result = await sql`
-      INSERT INTO share_links (user_id, event_typ, event_name, event_datum)
-      VALUES (${userId}, ${event_typ}, ${event_name || null}, ${event_datum || null})
+      INSERT INTO share_links (user_id, event_typ, event_name, event_datum, theme_id)
+      VALUES (${userId}, ${event_typ}, ${event_name || null}, ${event_datum || null}, ${theme_id})
       RETURNING id
     `;
     const linkId = result.rows[0].id;

@@ -4,3 +4,5 @@ CREATE TABLE IF NOT EXISTS password_resets (
   token VARCHAR(20) NOT NULL,
   expires_at TIMESTAMP NOT NULL
 );
+
+ALTER TABLE share_links ADD COLUMN IF NOT EXISTS theme_id VARCHAR(50) DEFAULT 'braun';

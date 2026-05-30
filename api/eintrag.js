@@ -8,7 +8,7 @@ module.exports = async function handler(req, res) {
   if (req.method === 'GET') {
     try {
       const link = await sql`
-        SELECT s.id, s.user_id, s.event_typ, s.event_name, s.event_datum,
+        SELECT s.id, s.user_id, s.event_typ, s.event_name, s.event_datum, s.theme_id,
                u.vorname, u.nachname
         FROM share_links s
         JOIN users u ON u.id = s.user_id
@@ -16,7 +16,7 @@ module.exports = async function handler(req, res) {
       `;
       if (link.rows.length === 0) return res.status(404).json({ error: 'Link nicht gefunden.' });
 
-      const { vorname, nachname, user_id, event_typ, event_name, event_datum } = link.rows[0];
+      const { vorname, nachname, user_id, event_typ, event_name, event_datum, theme_id } = link.rows[0];
 
       const eintraege = await sql`
         SELECT freund_name, antworten, foto, created_at
@@ -31,6 +31,7 @@ module.exports = async function handler(req, res) {
         event_typ: event_typ || 'eigener',
         event_name: event_name || null,
         event_datum: event_datum || null,
+        theme_id: theme_id || 'braun',
         eintraege: eintraege.rows,
       });
     } catch (err) {

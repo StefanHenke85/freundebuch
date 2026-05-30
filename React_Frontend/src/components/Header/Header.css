@@ -173,6 +173,116 @@
 
 .event-detail-input:focus { border-color: #8b5e3c; }
 
+/* Schritt-Anzeige */
+.event-schritte {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 1rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid #d4b896;
+}
+
+.event-schritt-pill {
+  font-size: 0.7rem;
+  color: #a0856a;
+  padding: 0.2rem 0.5rem;
+  border-radius: 20px;
+  white-space: nowrap;
+  cursor: default;
+}
+
+.event-schritt-pill.aktiv {
+  background: #8b5e3c;
+  color: #f5efe6;
+  font-weight: bold;
+}
+
+.event-schritt-pill.fertig {
+  color: #5c7a3e;
+  cursor: pointer;
+}
+
+.event-schritt-linie {
+  flex: 1;
+  height: 1px;
+  background: #d4b896;
+  margin: 0 0.3rem;
+}
+
+/* Theme-Grid im Dialog */
+.event-theme-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.4rem;
+  margin-bottom: 0.8rem;
+}
+
+.event-theme-btn {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0.3rem;
+  border: 2px solid #d4b896;
+  border-radius: 6px;
+  background: #fdf8f0;
+  cursor: pointer;
+  transition: all 0.12s;
+}
+
+.event-theme-btn:hover { border-color: #8b5e3c; }
+.event-theme-btn.aktiv { border-color: #8b5e3c; background: #f0e6d6; }
+
+.event-theme-vorschau {
+  width: 100%;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.event-theme-label {
+  font-size: 0.6rem;
+  color: #5c3a1e;
+  text-align: center;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.event-theme-check {
+  position: absolute;
+  top: 2px; right: 3px;
+  font-size: 0.65rem;
+  color: #5c7a3e;
+  font-weight: bold;
+}
+
+.event-weiter-btn {
+  color: #fff;
+  border: none;
+  padding: 0.6rem;
+  border-radius: 5px;
+  width: 100%;
+  font-family: 'Georgia', serif;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.event-weiter-btn:hover { opacity: 0.88; }
+
+/* Mini-Vorschau */
+.event-mini-vorschau {
+  height: 40px;
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
 .event-generieren-btn {
   color: #f5efe6;
   border: none;
@@ -190,6 +300,7 @@
 
 @media (max-width: 480px) {
   .event-typ-grid { grid-template-columns: repeat(2, 1fr); }
+  .event-theme-grid { grid-template-columns: repeat(4, 1fr); }
 }
 
 .search-bar { display: none; }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { EVENT_FRAGEN, getEventTyp } from '../../data/eventFragen.js';
-import { getTheme } from '../../data/eventThemes.js';
+import { getTheme, getThemeById } from '../../data/eventThemes.js';
 import './FreundEintrag.css';
 
 const FreundEintrag = () => {
@@ -87,7 +87,8 @@ const FreundEintrag = () => {
   if (schritt === 'fehler') return <div className="fe-wrapper"><p className="fe-fehler">{fehler}</p></div>;
 
   const eventTyp = getEventTyp(daten?.event_typ);
-  const theme = getTheme(daten?.event_typ);
+  // Theme aus DB (gespeichertes theme_id), Fallback auf Event-Default
+  const theme = daten?.theme_id ? getThemeById(daten.theme_id) : getTheme(daten?.event_typ);
   const fragen = EVENT_FRAGEN[eventTyp.id] || EVENT_FRAGEN.eigener;
   const SEITE_GROESSE = 6;
   const seiten = Array.from(
