@@ -1,51 +1,42 @@
 import React, { useState } from "react";
-import { CognitoUserPool, CognitoUserAttribute } from "amazon-cognito-identity-js";
 import "./RegConLog.css";
 import { useNavigate } from "react-router-dom";
-const poolData = {
-  UserPoolId: "eu-central-1_7lxpfCbZ1", // Your user pool id here
-  ClientId: "3ps9g5oni6i3d2p087gv5h5m1s", // Your app client id here
-};
-const userPool = new CognitoUserPool(poolData);
+import { useAuth } from "../../context/AuthContext.jsx";
+
 const Register = () => {
   const [form, setForm] = useState({
-    username: "",
-    name: "",
-    family_name: "",
-    email: "",
-    birthdate: "",
-    address: "",
-    password: "",
+    username: "", vorname: "", nachname: "",
+    email: "", geburtsdatum: "", adresse: "", password: "",
   });
-  const navigate = useNavigate();
   const [message, setMessage] = useState("");
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
-  };
-  const handleSubmit = (e) => {
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const { login } = useAuth();
+
+  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const { username, name, family_name, email, birthdate, address, password } = form;
-    const attributeList = [
-      new CognitoUserAttribute({ Name: "name", Value: name }),
-      new CognitoUserAttribute({ Name: "family_name", Value: family_name }),
-      new CognitoUserAttribute({ Name: "email", Value: email }),
-      new CognitoUserAttribute({ Name: "birthdate", Value: birthdate }),
-      new CognitoUserAttribute({ Name: "address", Value: address }),
-    ];
-    userPool.signUp(username, password, attributeList, null, (err, result) => {
-      if (err) {
-        console.error("Error signing up:", err);
-        setMessage(`Error: ${err.message}`);
-        return;
-      }
-      console.log("Sign up successful:", result);
-      setMessage("Registrierung erfolgreich! Sie werden zur Bestätigungsseite weitergeleitet...");
-      setTimeout(() => {
-        navigate("/confirm");
-      }, 2000); // Leitet nach 2 Sekunden zur Bestätigungsseite weiter
-    });
+    setLoading(true);
+    setMessage("");
+    try {
+      const res = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      const data = await res.json();
+      if (!res.ok) { setMessage(data.error || 'Fehler bei der Registrierung.'); return; }
+      login(data.token, data.user);
+      setMessage("Registrierung erfolgreich! Du wirst weitergeleitet...");
+      setTimeout(() => navigate("/Profil"), 1500);
+    } catch {
+      setMessage("Verbindungsfehler. Bitte versuche es erneut.");
+    } finally {
+      setLoading(false);
+    }
   };
+
   return (
     <main className="main-content1">
       <div>
@@ -55,92 +46,30 @@ const Register = () => {
       <div className="register-container">
         <h1 className="Headline1">Registrieren</h1>
         <form className="register-form" onSubmit={handleSubmit}>
-          <label htmlFor="username">
-            Benutzername:
-            <input
-              className="input-field"
-              type="text"
-              id="username"
-              name="username"
-              value={form.username}
-              onChange={handleChange}
-              required
-            />
-          </label>
-          <label htmlFor="name">
-            Vorname:
-            <input
-              className="input-field"
-              type="text"
-              id="name"
-              name="name"
-              value={form.name}
-              onChange={handleChange}
-              required
-            />
-          </label>
-          <label htmlFor="family_name">
-            Nachname:
-            <input
-              className="input-field"
-              type="text"
-              id="family_name"
-              name="family_name"
-              value={form.family_name}
-              onChange={handleChange}
-              required
-            />
-          </label>
-          <label htmlFor="email">
-            E-Mail:
-            <input
-              className="input-field"
-              type="email"
-              id="email"
-              name="email"
-              value={form.email}
-              onChange={handleChange}
-              required
-            />
-          </label>
-          <label htmlFor="birthdate">
-            Geburtsdatum:
-            <input
-              className="input-field"
-              type="date"
-              id="birthdate"
-              name="birthdate"
-              value={form.birthdate}
-              onChange={handleChange}
-              required
-            />
-          </label>
-          <label htmlFor="address">
-            Adresse:
-            <input
-              className="input-field"
-              type="text"
-              id="address"
-              name="address"
-              value={form.address}
-              onChange={handleChange}
-              required
-            />
-          </label>
-          <label htmlFor="password">
-            Passwort:
-            <input
-              className="input-field"
-              type="password"
-              id="password"
-              name="password"
-              value={form.password}
-              onChange={handleChange}
-              required
-            />
-          </label>
-          <button type="submit" className="register-button">
-            Registrieren
+          {[
+            { label: "Benutzername", name: "username", type: "text" },
+            { label: "Vorname", name: "vorname", type: "text" },
+            { label: "Nachname", name: "nachname", type: "text" },
+            { label: "E-Mail", name: "email", type: "email" },
+            { label: "Geburtsdatum", name: "geburtsdatum", type: "date" },
+            { label: "Adresse", name: "adresse", type: "text" },
+            { label: "Passwort", name: "password", type: "password" },
+          ].map(({ label, name, type }) => (
+            <label key={name} htmlFor={name}>
+              {label}:
+              <input
+                className="input-field"
+                type={type}
+                id={name}
+                name={name}
+                value={form[name]}
+                onChange={handleChange}
+                required
+              />
+            </label>
+          ))}
+          <button type="submit" className="register-button" disabled={loading}>
+            {loading ? "Wird registriert..." : "Registrieren"}
           </button>
         </form>
         {message && <p className="message">{message}</p>}
@@ -148,4 +77,5 @@ const Register = () => {
     </main>
   );
 };
+
 export default Register;

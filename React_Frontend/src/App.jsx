@@ -26,7 +26,6 @@ import DemoBook from "./components/FlipBook/FlipBook.jsx";
 
 import Register from "./components/RecConLog/register.jsx";
 import Login from "./components/RecConLog/login.jsx";
-import Confirm from "./components/RecConLog/confirm.jsx";
 
 import Profil1 from "./components/Profil/1-Profil-Rohling.jsx";
 
@@ -36,9 +35,7 @@ import Chat from "./components/Chat/chat.jsx"; // Importiert die Chat-Komponente
 
 function App() {
   const location = useLocation();
-  const profilId = 1; // Beispiel-Profil-ID, dies sollte dynamisch sein
-
-  const hideHeaderRoutes = ['/', '/Home', '/login', '/register', '/confirm'];
+  const hideHeaderRoutes = ['/', '/Home', '/login', '/register'];
 
   return (
     <>
@@ -51,24 +48,23 @@ function App() {
         <Route path="/Impressum" element={<Impressum />} />
         <Route path="/Datenschutzerklärung" element={<Datenschutzerklärung />} />
 
-        <Route path="/1-Freunde" element={<Freunde1 profilId={profilId} />} />
-        <Route path="/2-Freunde" element={<Freunde2 profilId={profilId} />} />
-        <Route path="/3-Freunde" element={<Freunde3 profilId={profilId} />} />
-        <Route path="/4-Freunde" element={<Freunde4 profilId={profilId} />} />
-        <Route path="/5-Freunde" element={<Freunde5 profilId={profilId} />} />
-        <Route path="/6-Freunde" element={<Freunde6 profilId={profilId} />} />
-        <Route path="/7-Freunde" element={<Freunde7 profilId={profilId} />} />
-        <Route path="/8-Freunde" element={<Freunde8 profilId={profilId} />} />
-        <Route path="/9-Freunde" element={<Freunde9 profilId={profilId} />} />
-        <Route path="/10-Freunde" element={<Freunde10 profilId={profilId} />} />
+        <Route path="/1-Freunde" element={<Freunde1 />} />
+        <Route path="/2-Freunde" element={<Freunde2 />} />
+        <Route path="/3-Freunde" element={<Freunde3 />} />
+        <Route path="/4-Freunde" element={<Freunde4 />} />
+        <Route path="/5-Freunde" element={<Freunde5 />} />
+        <Route path="/6-Freunde" element={<Freunde6 />} />
+        <Route path="/7-Freunde" element={<Freunde7 />} />
+        <Route path="/8-Freunde" element={<Freunde8 />} />
+        <Route path="/9-Freunde" element={<Freunde9 />} />
+        <Route path="/10-Freunde" element={<Freunde10 />} />
         
-        <Route path="/FlipBook" element={<DemoBook profilId={profilId} />} />
+        <Route path="/FlipBook" element={<DemoBook />} />
 
         <Route path="/MeineFreunde" element={<Book />} />
 
         <Route path="/Profil" element={<Profil1 />} />
 
-        <Route path="/confirm" element={<Confirm />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 

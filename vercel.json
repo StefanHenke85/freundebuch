@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "buildCommand": "cd React_Frontend && npm install && npm run build",
+  "outputDirectory": "React_Frontend/build",
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/$1" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
