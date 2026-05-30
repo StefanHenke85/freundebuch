@@ -4,3 +4,6 @@ React_Frontend/build/
 .env
 .env.local
 .vercel
+
+.vercel
+.env*.local

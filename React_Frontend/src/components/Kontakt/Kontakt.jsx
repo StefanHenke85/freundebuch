@@ -47,19 +47,12 @@ const Contact = () => {
             <br /> können Sie uns gerne kontaktieren:
           </p>
           <p className="pK">
-            Teamforce One
-            <br />
-            Max Mustermann
-            <br />
-            Rheinstraße 40
-            <br />
-            08157 Kaufland
+            Stefan Henke
             <br />
             Deutschland
           </p>
           <p className="pK">
-            Telefon: 1234/56789 <br />
-            E-Mail: teamforceone2024@gmail.com
+            E-Mail: henke.stefan1985@gmail.com
           </p>
         </div>
       </div>

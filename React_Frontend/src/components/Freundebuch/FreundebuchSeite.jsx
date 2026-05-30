@@ -1,18 +1,18 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.jsx";
-import "../Profil/Profil-Design.css";
+import "./freundebuch.css";
 
-const FreundebuchSeite = ({ seite, vonIndex, bisIndex, cssId, vorSeite, nachSeite, fragen: fragenProp }) => {
+const FreundebuchSeite = ({ seite, vonIndex, bisIndex, vorSeite, nachSeite, fragen: fragenProp }) => {
   const { token } = useAuth();
   const navigate = useNavigate();
-  const [fragen, setFragen] = useState(fragenProp || []);
+  const [fragen, setFragen] = useState([]);
   const [antworten, setAntworten] = useState([]);
   const [gespeichert, setGespeichert] = useState(false);
 
   useEffect(() => {
     if (!token) { navigate('/login'); return; }
-    if (fragenProp) return;
+    if (fragenProp) { setFragen(fragenProp); return; }
 
     const cached = sessionStorage.getItem('fb_fragen');
     if (cached) { setFragen(JSON.parse(cached)); return; }
@@ -27,26 +27,28 @@ const FreundebuchSeite = ({ seite, vonIndex, bisIndex, cssId, vorSeite, nachSeit
   }, [token, navigate, fragenProp]);
 
   useEffect(() => {
-    if (!token) return;
+    if (!token || fragen.length === 0) return;
     fetch('/api/antworten', { headers: { Authorization: `Bearer ${token}` } })
       .then(r => r.json())
       .then(data => {
-        const slice = fragenProp
-          ? fragenProp.map(f => { const found = data.find(a => a.frage === f); return found ? found.antwort : ''; })
-          : fragen.slice(vonIndex, bisIndex).map(f => { const found = data.find(a => a.frage === f.frage); return found ? found.antwort : ''; });
+        const aktiveFragen = fragenProp || fragen.slice(vonIndex, bisIndex).map(f => f.frage);
+        const slice = aktiveFragen.map(f => {
+          const found = data.find(a => a.frage === (fragenProp ? f : f));
+          return found ? found.antwort : '';
+        });
         setAntworten(slice);
       })
       .catch(console.error);
   }, [token, fragen, vonIndex, bisIndex, fragenProp]);
 
   const aktiveFragen = fragenProp
-    ? fragenProp.map((f, i) => ({ frage: f, index: i }))
-    : fragen.slice(vonIndex, bisIndex).map((f, i) => ({ frage: f.frage, index: i }));
+    ? fragenProp
+    : fragen.slice(vonIndex, bisIndex).map(f => f.frage);
 
   const handleSave = useCallback(async () => {
     if (!token) return;
     const alle = JSON.parse(sessionStorage.getItem('fb_antworten') || '[]');
-    aktiveFragen.forEach(({ frage, index }) => {
+    aktiveFragen.forEach((frage, index) => {
       const existing = alle.findIndex(a => a.frage === frage);
       if (existing >= 0) alle[existing].antwort = antworten[index] || '';
       else alle.push({ frage, antwort: antworten[index] || '' });
@@ -66,42 +68,74 @@ const FreundebuchSeite = ({ seite, vonIndex, bisIndex, cssId, vorSeite, nachSeit
     }
   }, [token, aktiveFragen, antworten]);
 
+  const linksSeite = aktiveFragen.slice(0, Math.ceil(aktiveFragen.length / 2));
+  const rechtsSeite = aktiveFragen.slice(Math.ceil(aktiveFragen.length / 2));
+  const linksStart = 0;
+  const rechtsStart = Math.ceil(aktiveFragen.length / 2);
+
   return (
-    <div id={cssId || 'frdiv'}>
-      <img id="frbook" src="/img/book.png" alt="book" />
-      <div>
-        <h1 id="Headline">Seite {seite} — Beantworte kurz ein paar Fragen</h1>
-        <ul className="input">
-          {aktiveFragen.map(({ frage, index }) => (
-            <li key={index} className="liste">
-              <label>
-                <p>{frage}</p>
-                <input
-                  type="text"
-                  value={antworten[index] || ''}
-                  onChange={(e) => {
-                    const neu = [...antworten];
-                    neu[index] = e.target.value;
-                    setAntworten(neu);
-                  }}
-                />
-              </label>
-            </li>
-          ))}
-        </ul>
-        {gespeichert && <p style={{ color: 'green', textAlign: 'center' }}>Gespeichert!</p>}
-      </div>
-      <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', marginTop: '1rem' }}>
-        {vorSeite && (
-          <button id="Freunde" onClick={handleSave}>
-            <Link to={`/${vorSeite}-Freunde`}>{vorSeite}. Seite</Link>
-          </button>
-        )}
-        {nachSeite && (
-          <button id="Freunde" onClick={handleSave}>
-            <Link to={`/${nachSeite}-Freunde`}>{nachSeite}. Seite</Link>
-          </button>
-        )}
+    <div className="buch-wrapper">
+      <div className="buch">
+        {/* Linke Seite */}
+        <div className="buch-links" data-page={`Seite ${(seite - 1) * 2 + 1}`}>
+          <p className="buch-titel">Beantworte ein paar Fragen</p>
+          <ul className="buch-fragen-liste">
+            {linksSeite.map((frage, i) => (
+              <li key={i} className="buch-frage-item">
+                <label>
+                  <span className="buch-frage-text">{frage}</span>
+                  <input
+                    className="buch-input"
+                    type="text"
+                    value={antworten[linksStart + i] || ''}
+                    onChange={e => {
+                      const neu = [...antworten];
+                      neu[linksStart + i] = e.target.value;
+                      setAntworten(neu);
+                    }}
+                  />
+                </label>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Rechte Seite */}
+        <div className="buch-rechts" data-page={`Seite ${(seite - 1) * 2 + 2}`}>
+          <p className="buch-titel">&nbsp;</p>
+          <ul className="buch-fragen-liste">
+            {rechtsSeite.map((frage, i) => (
+              <li key={i} className="buch-frage-item">
+                <label>
+                  <span className="buch-frage-text">{frage}</span>
+                  <input
+                    className="buch-input"
+                    type="text"
+                    value={antworten[rechtsStart + i] || ''}
+                    onChange={e => {
+                      const neu = [...antworten];
+                      neu[rechtsStart + i] = e.target.value;
+                      setAntworten(neu);
+                    }}
+                  />
+                </label>
+              </li>
+            ))}
+          </ul>
+
+          <div className="buch-nav">
+            {vorSeite
+              ? <Link className="buch-nav-btn" to={`/${vorSeite}-Freunde`} onClick={handleSave}>← {vorSeite}. Seite</Link>
+              : <span />
+            }
+            <span className="buch-seite-nr">{seite} / 10</span>
+            {nachSeite
+              ? <Link className="buch-nav-btn" to={`/${nachSeite}-Freunde`} onClick={handleSave}>{nachSeite}. Seite →</Link>
+              : <Link className="buch-nav-btn" to="/FlipBook" onClick={handleSave}>Fertig →</Link>
+            }
+          </div>
+          {gespeichert && <p className="buch-speichern-status">✓ Gespeichert</p>}
+        </div>
       </div>
     </div>
   );

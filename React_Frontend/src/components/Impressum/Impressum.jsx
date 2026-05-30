@@ -12,25 +12,18 @@ const Impressum = () => {
         <p className='pI'>Angaben gemäß § 5 TMG:</p>
        
         <p className='pI'>
-          Teamforce One<br />
-          <br />
-          Vertreten durch: <br />
-          Max Mustermann<br />
-          Rheinstraße 40 <br />
-          08157 Kaufland
+          Stefan Henke<br />
+          Deutschland
         </p>
-       
+
         <p className='pI'>
           Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV:<br />
-          Max Mustermann<br />
-          Rheinstraße 40 <br />
-          08157 Kaufland
+          Stefan Henke
         </p>
-       
+
         <p className='pI'>
           Kontakt:<br />
-          Telefon: 1234/56789 <br />
-          E-Mail: teamforceone2024@gmail.com
+          E-Mail: henke.stefan1985@gmail.com
         </p>
        
         <p className='pI3'> 
