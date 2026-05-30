@@ -10,7 +10,7 @@ module.exports = async function handler(req, res) {
   try {
     const { userId } = jwt.verify(auth.replace('Bearer ', ''), process.env.JWT_SECRET);
     const result = await sql`
-      SELECT id, freund_name, freund_email, antworten, created_at
+      SELECT id, freund_name, freund_email, antworten, foto, created_at
       FROM freunde_eintraege
       WHERE besitzer_id = ${userId}
       ORDER BY created_at DESC

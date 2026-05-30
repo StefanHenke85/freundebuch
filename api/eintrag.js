@@ -18,7 +18,7 @@ module.exports = async function handler(req, res) {
       const { vorname, nachname, user_id } = link.rows[0];
 
       const eintraege = await sql`
-        SELECT freund_name, antworten, created_at
+        SELECT freund_name, antworten, foto, created_at
         FROM freunde_eintraege
         WHERE besitzer_id = ${user_id}
         ORDER BY created_at DESC
@@ -40,7 +40,7 @@ module.exports = async function handler(req, res) {
 
   // POST: Eintrag speichern
   if (req.method === 'POST') {
-    const { freund_name, freund_email, antworten } = req.body;
+    const { freund_name, freund_email, antworten, foto } = req.body;
     if (!freund_name || !antworten) return res.status(400).json({ error: 'Name und Antworten erforderlich.' });
 
     try {
@@ -49,8 +49,8 @@ module.exports = async function handler(req, res) {
 
       const { user_id } = link.rows[0];
       await sql`
-        INSERT INTO freunde_eintraege (besitzer_id, freund_name, freund_email, antworten)
-        VALUES (${user_id}, ${freund_name}, ${freund_email || null}, ${JSON.stringify(antworten)})
+        INSERT INTO freunde_eintraege (besitzer_id, freund_name, freund_email, antworten, foto)
+        VALUES (${user_id}, ${freund_name}, ${freund_email || null}, ${JSON.stringify(antworten)}, ${foto || null})
       `;
       return res.status(201).json({ success: true });
     } catch (err) {

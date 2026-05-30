@@ -106,6 +106,39 @@
   flex-shrink: 0;
 }
 
+.mf-avatar-foto {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #8b5e3c;
+  flex-shrink: 0;
+}
+
+.mf-antworten-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #d4b896;
+}
+
+.mf-antworten-foto {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #8b5e3c;
+  flex-shrink: 0;
+}
+
+.mf-avatar-gross {
+  width: 64px;
+  height: 64px;
+  font-size: 1.5rem;
+}
+
 .mf-info {
   display: flex;
   flex-direction: column;

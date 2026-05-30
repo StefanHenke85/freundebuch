@@ -98,28 +98,132 @@
   padding: 0.2rem 0;
 }
 
-.fe-eintraege {
+/* Foto-Bereich */
+.fe-foto-bereich {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.fe-foto-vorschau {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #8b5e3c;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.fe-foto-platzhalter {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: #e8d5c0;
+  border: 3px dashed #8b5e3c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+}
+
+.fe-foto-optionen {
+  display: flex;
   gap: 0.4rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.fe-btn-klein {
+  padding: 0.3rem 0.7rem;
+  font-size: 0.75rem;
+}
+
+.fe-kamera {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.fe-kamera-video {
+  width: 180px;
+  height: 135px;
+  border-radius: 6px;
+  border: 2px solid #8b5e3c;
+  object-fit: cover;
+  background: #1a0d00;
+}
+
+.fe-kamera-buttons {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.fe-kamera-fehler {
+  font-size: 0.72rem;
+  color: #8b2020;
+  font-style: italic;
+  text-align: center;
+}
+
+.fe-foto-hinweis {
+  color: #8b5e3c;
+  font-style: italic;
+}
+
+.fe-eintraege {
   margin-top: auto;
 }
 
 .fe-eintraege-titel {
-  width: 100%;
   font-size: 0.75rem;
   color: #8b5e3c;
   font-style: italic;
-  margin: 0 0 0.3rem 0;
+  margin: 0 0 0.4rem 0;
+}
+
+.fe-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
 }
 
 .fe-freund-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
   background: #e8d5c0;
   color: #5c3a1e;
-  padding: 0.2rem 0.6rem;
+  padding: 0.2rem 0.5rem;
   border-radius: 20px;
   font-size: 0.75rem;
   font-family: 'Georgia', serif;
+}
+
+.fe-chip-foto {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.fe-chip-initial {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #8b5e3c;
+  color: #f5efe6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: bold;
+}
+
+.fe-btn-weiter {
+  align-self: flex-end;
+  margin-top: auto;
 }
 
 .fe-seite-nr {

@@ -11,5 +11,5 @@ CREATE TABLE IF NOT EXISTS freunde_eintraege (
 
 -- share_links erweitern damit sie mehrfach nutzbar sind
 ALTER TABLE share_links ADD COLUMN IF NOT EXISTS max_uses INTEGER DEFAULT 100;
-ALTER TABLE share_links ALTER COLUMN used DROP NOT NULL;
 ALTER TABLE share_links ALTER COLUMN used SET DEFAULT FALSE;
+ALTER TABLE freunde_eintraege ADD COLUMN IF NOT EXISTS foto TEXT;

@@ -40,7 +40,10 @@ const MeineFreundeSeite = () => {
                   className={`mf-eintrag ${ausgewaehlt === i ? 'mf-eintrag-aktiv' : ''}`}
                   onClick={() => setAusgewaehlt(ausgewaehlt === i ? null : i)}
                 >
-                  <div className="mf-avatar">{f.freund_name.charAt(0).toUpperCase()}</div>
+                  {f.foto
+            ? <img src={f.foto} alt={f.freund_name} className="mf-avatar-foto" />
+            : <div className="mf-avatar">{f.freund_name.charAt(0).toUpperCase()}</div>
+          }
                   <div className="mf-info">
                     <strong>{f.freund_name}</strong>
                     <span>{new Date(f.created_at).toLocaleDateString('de-DE')}</span>
@@ -59,7 +62,13 @@ const MeineFreundeSeite = () => {
             </div>
           ) : (
             <div className="mf-antworten">
-              <h3 className="mf-antworten-name">{freunde[ausgewaehlt].freund_name}</h3>
+              <div className="mf-antworten-header">
+                {freunde[ausgewaehlt].foto
+                  ? <img src={freunde[ausgewaehlt].foto} alt="" className="mf-antworten-foto" />
+                  : <div className="mf-avatar mf-avatar-gross">{freunde[ausgewaehlt].freund_name.charAt(0).toUpperCase()}</div>
+                }
+                <h3 className="mf-antworten-name" style={{ margin: 0 }}>{freunde[ausgewaehlt].freund_name}</h3>
+              </div>
               <div className="mf-antworten-liste">
                 {(freunde[ausgewaehlt].antworten || []).map((a, i) => (
                   <div key={i} className="mf-antwort-item">
