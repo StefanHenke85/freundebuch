@@ -529,6 +529,92 @@
 
 .home-footer-links a:hover { color: #f5efe6; }
 
+/* ── Features ── */
+.home-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.2rem;
+  padding: 3rem 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  border-bottom: 1px solid rgba(196,168,130,0.12);
+}
+
+.home-feature-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(196,168,130,0.12);
+  border-radius: 8px;
+  padding: 1.3rem 1.1rem;
+  transition: background 0.2s;
+}
+
+.home-feature-card:hover { background: rgba(255,255,255,0.07); }
+.home-feature-emoji { font-size: 1.8rem; margin-bottom: 0.6rem; }
+
+.home-feature-titel {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.1rem;
+  color: #f5efe6;
+  margin: 0 0 0.4rem 0;
+}
+
+.home-feature-text {
+  font-size: 0.82rem;
+  color: #c4a882;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── Event-Typen ── */
+.home-event-typen {
+  background: #2a1505;
+  padding: 3rem 2rem;
+  border-top: 1px solid rgba(196,168,130,0.12);
+}
+
+.home-event-typen-titel {
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(1.3rem, 3vw, 1.8rem);
+  color: #f5efe6;
+  text-align: center;
+  margin: 0 0 1.8rem 0;
+}
+
+.home-event-typen-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.home-event-typ-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(196,168,130,0.15);
+  border-radius: 8px;
+  padding: 1.2rem 1rem;
+  text-align: center;
+  transition: background 0.2s;
+}
+
+.home-event-typ-card:hover { background: rgba(255,255,255,0.07); }
+
+.home-event-typ-emoji { font-size: 2rem; display: block; margin-bottom: 0.5rem; }
+
+.home-event-typ-titel {
+  font-size: 0.95rem;
+  color: #f5efe6;
+  margin: 0 0 0.3rem 0;
+  font-family: 'Georgia', serif;
+}
+
+.home-event-typ-text {
+  font-size: 0.78rem;
+  color: #c4a882;
+  line-height: 1.5;
+  margin: 0;
+}
+
 /* ── Mobile ── */
 @media (max-width: 600px) {
   .home-hero { padding: 5rem 1rem 2rem; min-height: 0; }

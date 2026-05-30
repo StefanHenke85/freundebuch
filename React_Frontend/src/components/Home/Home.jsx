@@ -87,6 +87,24 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Features */}
+      <section className="home-features">
+        {[
+          { emoji: '🎨', titel: '10 Design-Themes', text: 'Von klassisch braun über romantisches Rosa bis zum dunklen Nacht-Look — wähle das Design das zu deinem Event passt.' },
+          { emoji: '📸', titel: 'Fotos & Selfies', text: 'Gäste können direkt ein Selfie per Kamera aufnehmen oder ein Foto hochladen. Macht jede Seite persönlicher.' },
+          { emoji: '🔗', titel: 'Kein Account nötig', text: 'Gäste öffnen einfach deinen Link — fertig. Keine Registrierung, keine App, kein Aufwand.' },
+          { emoji: '🖨️', titel: 'Drucken & PDF', text: 'Alle Einträge als PDF speichern oder direkt drucken. Dein digitales Gästebuch wird zum echten Erinnerungsstück.' },
+          { emoji: '📱', titel: 'Auf jedem Gerät', text: 'Handy, Tablet oder PC — das Freundebuch funktioniert überall. Perfekt für spontane Einträge beim Event.' },
+          { emoji: '🔒', titel: 'Deine Daten, dein Buch', text: 'Keine Werbung, kein Tracking. Deine Gästebücher gehören dir — kostenlos und ohne versteckte Kosten.' },
+        ].map((f, i) => (
+          <div key={i} className="home-feature-card">
+            <div className="home-feature-emoji">{f.emoji}</div>
+            <h3 className="home-feature-titel">{f.titel}</h3>
+            <p className="home-feature-text">{f.text}</p>
+          </div>
+        ))}
+      </section>
+
       {/* Schritte */}
       <section className="home-steps">
         <h2 className="home-steps-titel">So einfach geht's</h2>
@@ -248,6 +266,27 @@ const Home = () => {
             </div>
           </div>
         )}
+      </section>
+
+      {/* Event-Typen Übersicht */}
+      <section className="home-event-typen">
+        <h2 className="home-event-typen-titel">Für jeden Anlass das passende Gästebuch</h2>
+        <div className="home-event-typen-grid">
+          {[
+            { emoji: '🎂', titel: 'Geburtstag', text: 'Lass Freunde und Familie unvergessliche Glückwünsche und Erinnerungen hinterlassen.' },
+            { emoji: '💍', titel: 'Hochzeit', text: 'Das schönste Gästebuch für den schönsten Tag — mit Fotos und persönlichen Wünschen.' },
+            { emoji: '⛪', titel: 'Taufe & Kommunion', text: 'Liebevolle Einträge von Familie und Paten für einen besonderen Lebensmoment.' },
+            { emoji: '🃏', titel: 'TCG Events', text: 'Turniere, Pre-Releases, Deck-Battles — dokumentiere deine Community.' },
+            { emoji: '🎉', titel: 'Party & Feier', text: 'Wer war dabei, was war der lustigste Moment? Deine Party für immer festgehalten.' },
+            { emoji: '📝', titel: 'Eigene Events', text: 'Firmenfeiern, Schulabschlüsse, Vereinsjubiläen — individuell anpassbar.' },
+          ].map((ev, i) => (
+            <div key={i} className="home-event-typ-card">
+              <span className="home-event-typ-emoji">{ev.emoji}</span>
+              <h3 className="home-event-typ-titel">{ev.titel}</h3>
+              <p className="home-event-typ-text">{ev.text}</p>
+            </div>
+          ))}
+        </div>
       </section>
 
       {/* Footer-Links */}
