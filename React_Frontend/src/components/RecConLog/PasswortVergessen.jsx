@@ -19,7 +19,7 @@ const PasswortVergessen = () => {
     e.preventDefault();
     setLoading(true); setMeldung('');
     try {
-      const res = await fetch('/api/auth/forgot', {
+      const res = await fetch('/api/auth?action=forgot', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),
@@ -37,7 +37,7 @@ const PasswortVergessen = () => {
     if (password !== password2) { setMeldung('Passwörter stimmen nicht überein.'); return; }
     setLoading(true); setMeldung('');
     try {
-      const res = await fetch('/api/auth/reset', {
+      const res = await fetch('/api/auth?action=reset', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, token: code, password }),

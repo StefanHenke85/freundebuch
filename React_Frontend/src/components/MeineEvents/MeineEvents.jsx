@@ -16,7 +16,7 @@ const MeineEvents = () => {
 
   useEffect(() => {
     if (!token) { navigate('/login'); return; }
-    fetch('/api/meine-events', { headers: { Authorization: `Bearer ${token}` } })
+    fetch('/api/events?action=liste', { headers: { Authorization: `Bearer ${token}` } })
       .then(r => r.json())
       .then(d => { setEvents(Array.isArray(d) ? d : []); setLoading(false); })
       .catch(() => setLoading(false));
@@ -28,7 +28,7 @@ const MeineEvents = () => {
     setAusgewaehltGast(null);
     setLadeGaeste(true);
     try {
-      const res = await fetch(`/api/event-gaeste?linkId=${event.id}`, { headers: { Authorization: `Bearer ${token}` } });
+      const res = await fetch(`/api/events?action=gaeste&linkId=${event.id}`, { headers: { Authorization: `Bearer ${token}` } });
       const d = await res.json();
       setGaeste(d.gaeste || []);
     } finally {

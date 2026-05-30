@@ -11,7 +11,7 @@ const DruckAnsicht = () => {
 
   useEffect(() => {
     if (!token) { navigate('/login'); return; }
-    fetch('/api/freunde', { headers: { Authorization: `Bearer ${token}` } })
+    fetch('/api/events?action=liste', { headers: { Authorization: `Bearer ${token}` } })
       .then(r => r.json())
       .then(d => { setFreunde(Array.isArray(d) ? d : []); setLoading(false); })
       .catch(() => setLoading(false));
