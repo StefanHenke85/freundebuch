@@ -1,12 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Georgia&display=swap");
 
 .mf-wrapper {
-  min-height: calc(100vh - 120px);
+  min-height: calc(100vh - 100px);
   background: #f5efe6;
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  padding: 2rem;
+  padding: 1.5rem 1rem;
   font-family: 'Georgia', serif;
 }
 
@@ -14,28 +14,29 @@
   display: flex;
   width: 100%;
   max-width: 860px;
-  min-height: 560px;
-  box-shadow: 0 25px 70px rgba(0,0,0,0.25), -8px 0 0 #5c3a1e;
+  min-height: 500px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2), -6px 0 0 #5c3a1e;
   border-radius: 2px 8px 8px 2px;
 }
 
 .mf-links {
-  width: 260px;
+  width: 240px;
   flex-shrink: 0;
   background: #fdf8f0;
   border-right: 2px solid #d4b896;
-  padding: 1.5rem 1.2rem;
+  padding: 1.2rem 1rem;
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
+  gap: 0.6rem;
   overflow-y: auto;
 }
 
 .mf-rechts {
   flex: 1;
   background: #fdf8f0;
-  padding: 1.5rem;
+  padding: 1.2rem 1rem;
   overflow-y: auto;
+  min-width: 0;
   background-image: repeating-linear-gradient(
     transparent, transparent 39px, #e8d5c0 39px, #e8d5c0 40px
   );
@@ -44,16 +45,16 @@
 
 .mf-titel {
   font-family: 'Dancing Script', cursive;
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   color: #5c3a1e;
   margin: 0;
   text-align: center;
   border-bottom: 1px solid #d4b896;
-  padding-bottom: 0.5rem;
+  padding-bottom: 0.4rem;
 }
 
 .mf-anzahl {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   color: #a0856a;
   text-align: center;
   font-style: italic;
@@ -61,7 +62,7 @@
 }
 
 .mf-leer {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   color: #8b5e3c;
   font-style: italic;
   line-height: 1.6;
@@ -75,14 +76,14 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: 0.3rem;
 }
 
 .mf-eintrag {
   display: flex;
   align-items: center;
-  gap: 0.7rem;
-  padding: 0.6rem 0.5rem;
+  gap: 0.6rem;
+  padding: 0.5rem 0.4rem;
   border-radius: 4px;
   cursor: pointer;
   transition: background 0.15s;
@@ -93,50 +94,48 @@
 .mf-eintrag-aktiv { background: #e8d5c0; }
 
 .mf-avatar {
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   background: #8b5e3c;
   color: #f5efe6;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: bold;
   flex-shrink: 0;
 }
 
 .mf-avatar-foto {
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid #8b5e3c;
   flex-shrink: 0;
 }
 
-.mf-antworten-header {
+.mf-info {
   display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid #d4b896;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+  flex: 1;
 }
 
-.mf-antworten-foto {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid #8b5e3c;
-  flex-shrink: 0;
+.mf-info strong {
+  font-size: 0.85rem;
+  color: #3a2510;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.mf-avatar-gross {
-  width: 64px;
-  height: 64px;
-  font-size: 1.5rem;
+.mf-info span {
+  font-size: 0.7rem;
+  color: #a0856a;
+  font-style: italic;
 }
 
 .mf-loeschen-btn {
@@ -145,9 +144,9 @@
   border: 1px solid transparent;
   color: #c4a882;
   border-radius: 50%;
-  width: 24px;
-  height: 24px;
-  font-size: 0.8rem;
+  width: 22px;
+  height: 22px;
+  font-size: 0.75rem;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -157,36 +156,8 @@
   opacity: 0;
 }
 
-.mf-eintrag:hover .mf-loeschen-btn {
-  opacity: 1;
-}
-
-.mf-loeschen-btn:hover {
-  background: #8b2020;
-  color: #fff;
-  border-color: #8b2020;
-}
-
-.mf-info {
-  display: flex;
-  flex-direction: column;
-  gap: 0.1rem;
-  min-width: 0;
-}
-
-.mf-info strong {
-  font-size: 0.88rem;
-  color: #3a2510;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.mf-info span {
-  font-size: 0.72rem;
-  color: #a0856a;
-  font-style: italic;
-}
+.mf-eintrag:hover .mf-loeschen-btn { opacity: 1; }
+.mf-loeschen-btn:hover { background: #8b2020; color: #fff; border-color: #8b2020; }
 
 .mf-hinweis {
   display: flex;
@@ -195,44 +166,84 @@
   height: 100%;
   color: #a0856a;
   font-style: italic;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
+  text-align: center;
+  padding: 2rem;
+}
+
+.mf-antworten-header {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid #d4b896;
+}
+
+.mf-antworten-foto {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #8b5e3c;
+  flex-shrink: 0;
+}
+
+.mf-avatar-gross {
+  width: 56px;
+  height: 56px;
+  font-size: 1.3rem;
 }
 
 .mf-antworten-name {
   font-family: 'Dancing Script', cursive;
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   color: #5c3a1e;
-  margin: 0 0 1rem 0;
-  border-bottom: 1px solid #d4b896;
-  padding-bottom: 0.5rem;
 }
 
 .mf-antworten-liste {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.8rem;
 }
 
 .mf-antwort-item {
-  border-left: 3px solid #d4b896;
-  padding-left: 0.8rem;
+  border-left: 2px solid #d4b896;
+  padding-left: 0.7rem;
 }
 
 .mf-frage {
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   color: #8b5e3c;
   font-weight: bold;
-  margin: 0 0 0.2rem 0;
+  margin: 0 0 0.15rem 0;
 }
 
 .mf-antwort {
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   color: #3a2510;
   font-style: italic;
   margin: 0;
 }
 
+/* Tablet */
 @media (max-width: 700px) {
-  .mf-buch { flex-direction: column; }
-  .mf-links { width: 100%; border-right: none; border-bottom: 2px solid #d4b896; }
+  .mf-buch {
+    flex-direction: column;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    border-radius: 8px;
+  }
+  .mf-links {
+    width: 100%;
+    border-right: none;
+    border-bottom: 2px solid #d4b896;
+    max-height: 280px;
+  }
+  .mf-loeschen-btn { opacity: 1; }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .mf-wrapper { padding: 0.75rem 0.5rem; }
+  .mf-links, .mf-rechts { padding: 1rem 0.8rem; }
 }

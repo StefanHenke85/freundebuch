@@ -3,13 +3,13 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  min-height: calc(100vh - 100px);
   background: #f5efe6;
-  padding: 2rem;
+  padding: 1.5rem 1rem;
 }
 
 .flipbook {
-  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.35);
 }
 
 .demoPage {
@@ -31,30 +31,24 @@
   justify-content: center;
   color: #f5efe6;
   text-align: center;
-  padding: 2rem;
+  padding: 1.5rem;
 }
 
 .page-cover h1 {
-  font-size: 2rem;
+  font-size: clamp(1.2rem, 4vw, 2rem);
   font-family: 'Georgia', serif;
   letter-spacing: 2px;
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
   text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
 }
 
-.page-cover p {
-  font-size: 1rem;
-  opacity: 0.85;
-}
-
-.page-back {
-  background: linear-gradient(135deg, #5c3a1e, #8b5e3c);
-}
+.page-cover p { font-size: 0.9rem; opacity: 0.85; }
+.page-back { background: linear-gradient(135deg, #5c3a1e, #8b5e3c); }
 
 .page-content {
   width: 100%;
   height: 100%;
-  padding: 2.5rem 2rem;
+  padding: 1.5rem 1.2rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -63,48 +57,52 @@
 
 .page-number {
   position: absolute;
-  bottom: 1rem;
-  right: 1.5rem;
-  font-size: 0.8rem;
+  bottom: 0.8rem;
+  right: 1rem;
+  font-size: 0.75rem;
   color: #a0856a;
   font-style: italic;
 }
 
 .page-question {
-  font-size: 1rem;
+  font-size: 0.88rem;
   color: #5c3a1e;
   font-weight: bold;
-  margin-bottom: 1.5rem;
-  line-height: 1.5;
+  margin-bottom: 1rem;
+  line-height: 1.4;
   border-left: 3px solid #8b5e3c;
-  padding-left: 0.8rem;
+  padding-left: 0.7rem;
 }
 
 .page-answer {
-  font-size: 0.95rem;
+  font-size: 0.88rem;
   color: #3a2510;
-  line-height: 1.7;
+  line-height: 1.6;
   font-style: italic;
 }
 
 .flipbook-nav {
   display: flex;
-  gap: 2rem;
-  margin-top: 1.5rem;
+  gap: 1.5rem;
+  margin-top: 1.2rem;
 }
 
 .flipbook-nav button {
   background: #8b5e3c;
   color: #f5efe6;
   border: none;
-  padding: 0.6rem 1.8rem;
+  padding: 0.55rem 1.5rem;
   border-radius: 4px;
-  font-size: 1rem;
+  font-size: 0.9rem;
   cursor: pointer;
   font-family: 'Georgia', serif;
   transition: background 0.2s;
 }
 
-.flipbook-nav button:hover {
-  background: #5c3a1e;
+.flipbook-nav button:hover { background: #5c3a1e; }
+
+@media (max-width: 480px) {
+  .flipbook-wrapper { padding: 0.75rem 0.5rem; }
+  .flipbook-nav { gap: 0.8rem; }
+  .flipbook-nav button { padding: 0.45rem 1rem; font-size: 0.82rem; }
 }

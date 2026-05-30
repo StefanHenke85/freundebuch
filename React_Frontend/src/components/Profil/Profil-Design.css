@@ -1,10 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Georgia&display=swap");
 
-body {
-  margin: 0;
-  padding: 0;
-  background: #f5efe6;
-}
+body { margin: 0; padding: 0; background: #f5efe6; }
 
 .profil-laden {
   text-align: center;
@@ -17,9 +13,9 @@ body {
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  min-height: calc(100vh - 120px);
+  min-height: calc(100vh - 100px);
   background: #f5efe6;
-  padding: 2rem;
+  padding: 1.5rem 1rem;
   font-family: 'Georgia', serif;
 }
 
@@ -27,20 +23,17 @@ body {
   display: flex;
   width: 100%;
   max-width: 860px;
-  min-height: 560px;
-  box-shadow: 0 25px 70px rgba(0,0,0,0.25), -8px 0 20px rgba(0,0,0,0.1);
+  min-height: 500px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2), -6px 0 15px rgba(0,0,0,0.1);
   border-radius: 2px 8px 8px 2px;
   position: relative;
 }
 
-/* Buchrücken */
 .profil-buch::before {
   content: '';
   position: absolute;
-  left: 0;
-  top: 0;
-  width: 18px;
-  height: 100%;
+  left: 0; top: 0;
+  width: 14px; height: 100%;
   background: linear-gradient(to right, #5c3a1e, #8b5e3c);
   border-radius: 2px 0 0 2px;
   z-index: 1;
@@ -50,19 +43,21 @@ body {
   flex: 1;
   background: #fdf8f0;
   border-right: 2px solid #d4b896;
-  margin-left: 18px;
-  padding: 2rem 1.5rem;
+  margin-left: 14px;
+  padding: 1.5rem 1.2rem;
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: 1rem;
+  min-width: 0;
 }
 
 .profil-rechts {
   flex: 1;
   background: #fdf8f0;
-  padding: 2rem 1.5rem;
+  padding: 1.5rem 1.2rem;
   display: flex;
   flex-direction: column;
+  min-width: 0;
   background-image: repeating-linear-gradient(
     transparent, transparent 39px, #e8d5c0 39px, #e8d5c0 40px
   );
@@ -74,12 +69,11 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.7rem;
+  gap: 0.6rem;
 }
 
 .profil-bild-vorschau {
-  width: 120px;
-  height: 120px;
+  width: 110px; height: 110px;
   border-radius: 50%;
   object-fit: cover;
   border: 4px solid #8b5e3c;
@@ -87,15 +81,14 @@ body {
 }
 
 .profil-bild-platzhalter {
-  width: 120px;
-  height: 120px;
+  width: 110px; height: 110px;
   border-radius: 50%;
   background: #e8d5c0;
   border: 3px dashed #8b5e3c;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   color: #8b5e3c;
   font-style: italic;
   text-align: center;
@@ -103,12 +96,11 @@ body {
 
 .bild-optionen {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.4rem;
   flex-wrap: wrap;
   justify-content: center;
 }
 
-/* Kamera */
 .kamera-bereich {
   display: flex;
   flex-direction: column;
@@ -119,8 +111,8 @@ body {
 
 .kamera-video {
   width: 100%;
-  max-width: 220px;
-  height: 165px;
+  max-width: 200px;
+  height: 150px;
   border-radius: 6px;
   border: 2px solid #8b5e3c;
   object-fit: cover;
@@ -128,13 +120,10 @@ body {
   display: block;
 }
 
-.kamera-buttons {
-  display: flex;
-  gap: 0.4rem;
-}
+.kamera-buttons { display: flex; gap: 0.4rem; }
 
 .kamera-fehler {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   color: #8b2020;
   text-align: center;
   font-style: italic;
@@ -146,10 +135,10 @@ body {
   background: #8b5e3c;
   color: #f5efe6;
   border: none;
-  padding: 0.4rem 0.9rem;
+  padding: 0.4rem 0.8rem;
   border-radius: 4px;
   font-family: 'Georgia', serif;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   cursor: pointer;
   transition: background 0.2s;
   text-align: center;
@@ -160,36 +149,26 @@ body {
 .profil-btn:hover { background: #5c3a1e; }
 .profil-btn-grau { background: #a0856a; }
 .profil-btn-grau:hover { background: #7a6050; }
-
-.profil-btn-speichern {
-  font-size: 0.95rem;
-  padding: 0.6rem 2rem;
-  width: 100%;
-  margin-top: 0.5rem;
-}
+.profil-btn-speichern { font-size: 0.9rem; padding: 0.55rem 1.5rem; width: 100%; margin-top: 0.5rem; }
 
 /* Infos */
-.profil-infos {
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-}
+.profil-infos { display: flex; flex-direction: column; gap: 0.5rem; }
 
 .profil-zeile {
   display: flex;
   align-items: baseline;
-  gap: 0.5rem;
-  font-size: 0.9rem;
+  gap: 0.4rem;
+  font-size: 0.85rem;
   color: #3a2510;
   margin: 0;
   border-bottom: 1px solid #e8d5c0;
-  padding-bottom: 0.35rem;
+  padding-bottom: 0.3rem;
 }
 
 .profil-zeile span {
   color: #8b5e3c;
-  font-size: 0.78rem;
-  min-width: 75px;
+  font-size: 0.75rem;
+  min-width: 70px;
   font-style: italic;
 }
 
@@ -198,7 +177,7 @@ body {
   border: none;
   outline: none;
   font-family: 'Georgia', serif;
-  font-size: 0.88rem;
+  font-size: 0.85rem;
   color: #3a2510;
   flex: 1;
   min-width: 0;
@@ -206,31 +185,26 @@ body {
 
 /* Über mich */
 .profil-ueber-titel {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   color: #5c3a1e;
   text-align: center;
-  margin: 0 0 1rem 0;
+  margin: 0 0 0.8rem 0;
   font-family: 'Dancing Script', cursive;
   border-bottom: 1px solid #d4b896;
-  padding-bottom: 0.5rem;
-  letter-spacing: 1px;
+  padding-bottom: 0.4rem;
 }
 
-.profil-form {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
+.profil-form { display: flex; flex-direction: column; flex: 1; }
 
 .profil-textarea {
   flex: 1;
   width: 100%;
-  min-height: 280px;
+  min-height: 220px;
   background: transparent;
   border: none;
   outline: none;
   font-family: 'Georgia', serif;
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   color: #3a2510;
   resize: none;
   line-height: 40px;
@@ -238,22 +212,33 @@ body {
 
 .profil-gespeichert {
   color: #5c7a3e;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-style: italic;
   text-align: center;
   margin: 0.2rem 0;
 }
 
-/* Responsive */
+/* Tablet */
 @media (max-width: 700px) {
   .profil-buch {
     flex-direction: column;
-    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
   }
   .profil-buch::before { display: none; }
   .profil-links {
     margin-left: 0;
     border-right: none;
     border-bottom: 2px solid #d4b896;
+    border-radius: 8px 8px 0 0;
   }
+  .profil-rechts { border-radius: 0 0 8px 8px; }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .profil-buch-wrapper { padding: 0.75rem 0.5rem; }
+  .profil-links, .profil-rechts { padding: 1rem 0.8rem; }
+  .profil-bild-vorschau, .profil-bild-platzhalter { width: 90px; height: 90px; }
+  .profil-textarea { min-height: 160px; }
 }

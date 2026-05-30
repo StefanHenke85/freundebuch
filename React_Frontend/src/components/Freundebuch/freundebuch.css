@@ -1,31 +1,32 @@
 /* Einheitliches Buch-Design für alle 10 Freundebuch-Seiten */
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Georgia&display=swap");
 
 .buch-wrapper {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  min-height: 100vh;
+  min-height: calc(100vh - 100px);
   background: #f5efe6;
   font-family: 'Georgia', serif;
-  padding: 2rem;
+  padding: 1.5rem 1rem;
 }
 
 .buch {
   display: flex;
-  width: 860px;
-  min-height: 560px;
-  box-shadow: 0 25px 70px rgba(0,0,0,0.35), -8px 0 20px rgba(0,0,0,0.15);
+  width: 100%;
+  max-width: 860px;
+  min-height: 500px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.25), -6px 0 15px rgba(0,0,0,0.1);
   border-radius: 2px 8px 8px 2px;
   position: relative;
 }
 
-/* Buchrücken */
 .buch::before {
   content: '';
   position: absolute;
   left: 0;
   top: 0;
-  width: 18px;
+  width: 14px;
   height: 100%;
   background: linear-gradient(to right, #5c3a1e, #8b5e3c);
   border-radius: 2px 0 0 2px;
@@ -35,20 +36,18 @@
 .buch-links,
 .buch-rechts {
   flex: 1;
-  padding: 3rem 2.5rem;
+  padding: 2rem 1.5rem;
   position: relative;
   overflow: hidden;
+  min-width: 0;
 }
 
 .buch-links {
   background: #fdf8f0;
   border-right: 2px solid #d4b896;
-  margin-left: 18px;
+  margin-left: 14px;
   background-image: repeating-linear-gradient(
-    transparent,
-    transparent 39px,
-    #e8d5c0 39px,
-    #e8d5c0 40px
+    transparent, transparent 39px, #e8d5c0 39px, #e8d5c0 40px
   );
   background-position: 0 1.5rem;
 }
@@ -56,23 +55,20 @@
 .buch-rechts {
   background: #fdf8f0;
   background-image: repeating-linear-gradient(
-    transparent,
-    transparent 39px,
-    #e8d5c0 39px,
-    #e8d5c0 40px
+    transparent, transparent 39px, #e8d5c0 39px, #e8d5c0 40px
   );
   background-position: 0 1.5rem;
 }
 
 .buch-titel {
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: #8b5e3c;
   text-align: center;
-  margin-bottom: 1.8rem;
+  margin-bottom: 1.5rem;
   letter-spacing: 1px;
   font-style: italic;
   border-bottom: 1px solid #d4b896;
-  padding-bottom: 0.8rem;
+  padding-bottom: 0.6rem;
 }
 
 .buch-fragen-liste {
@@ -81,17 +77,17 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: 1rem;
 }
 
 .buch-frage-item label {
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  gap: 0.25rem;
 }
 
 .buch-frage-text {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   color: #5c3a1e;
   font-weight: bold;
   line-height: 1.4;
@@ -103,23 +99,20 @@
   border-bottom: 1px solid #a0856a;
   outline: none;
   font-family: 'Georgia', serif;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   color: #3a2510;
   padding: 0.2rem 0.3rem;
   width: 100%;
-  transition: border-color 0.2s;
 }
 
-.buch-input:focus {
-  border-bottom-color: #5c3a1e;
-}
+.buch-input:focus { border-bottom-color: #5c3a1e; }
 
 .buch-nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 2rem;
-  padding-top: 1rem;
+  margin-top: 1.5rem;
+  padding-top: 0.8rem;
   border-top: 1px solid #d4b896;
 }
 
@@ -127,22 +120,20 @@
   background: #8b5e3c;
   color: #f5efe6;
   border: none;
-  padding: 0.5rem 1.5rem;
+  padding: 0.45rem 1.1rem;
   border-radius: 4px;
   font-family: 'Georgia', serif;
-  font-size: 0.9rem;
+  font-size: 0.82rem;
   cursor: pointer;
   transition: background 0.2s;
   text-decoration: none;
   display: inline-block;
 }
 
-.buch-nav-btn:hover {
-  background: #5c3a1e;
-}
+.buch-nav-btn:hover { background: #5c3a1e; }
 
 .buch-seite-nr {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: #a0856a;
   font-style: italic;
 }
@@ -150,33 +141,33 @@
 .buch-speichern-status {
   text-align: center;
   color: #5c7a3e;
-  font-size: 0.85rem;
-  margin-top: 0.5rem;
+  font-size: 0.82rem;
+  margin-top: 0.4rem;
   font-style: italic;
 }
 
-/* Seitenzahl unten */
-.buch-links::after,
-.buch-rechts::after {
-  content: attr(data-page);
-  position: absolute;
-  bottom: 1rem;
-  font-size: 0.75rem;
-  color: #b8996e;
-  font-style: italic;
-}
-
-.buch-links::after { left: 1.5rem; }
-.buch-rechts::after { right: 1.5rem; }
-
-/* Responsive */
-@media (max-width: 900px) {
+/* Tablet */
+@media (max-width: 700px) {
   .buch {
     flex-direction: column;
-    width: 100%;
-    max-width: 440px;
     border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
   }
   .buch::before { display: none; }
-  .buch-links { margin-left: 0; border-right: none; border-bottom: 2px solid #d4b896; }
+  .buch-links {
+    margin-left: 0;
+    border-right: none;
+    border-bottom: 2px solid #d4b896;
+    border-radius: 8px 8px 0 0;
+  }
+  .buch-rechts { border-radius: 0 0 8px 8px; }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .buch-wrapper { padding: 0.75rem 0.5rem; }
+  .buch-links, .buch-rechts { padding: 1.2rem 1rem; }
+  .buch-frage-text { font-size: 0.78rem; }
+  .buch-input { font-size: 0.82rem; }
+  .buch-nav-btn { font-size: 0.78rem; padding: 0.4rem 0.8rem; }
 }
