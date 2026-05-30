@@ -112,6 +112,182 @@
 
 .lp-hero-cta:active { transform: translateY(0); }
 
+/* Wer-macht-was */
+.lp-hero-wer {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  max-width: 680px;
+  margin-top: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.lp-hero-wer-block {
+  flex: 1;
+  min-width: 250px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(196,168,130,0.2);
+  border-radius: 14px;
+  padding: 1.2rem 1rem;
+  display: flex;
+  gap: 0.8rem;
+  align-items: flex-start;
+  text-align: left;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+.lp-hero-wer-gastgeber { border-color: rgba(196,132,62,0.4); }
+.lp-hero-wer-gast { border-color: rgba(196,168,130,0.2); }
+
+.lp-hero-wer-icon { font-size: 1.8rem; flex-shrink: 0; }
+
+.lp-hero-wer-block strong {
+  display: block;
+  color: #f5efe6;
+  font-size: 0.92rem;
+  margin-bottom: 0.3rem;
+}
+
+.lp-hero-wer-block p {
+  color: rgba(245,239,230,0.7);
+  font-size: 0.8rem;
+  line-height: 1.5;
+  margin: 0 0 0.7rem 0;
+}
+
+.lp-hero-wer-hinweis {
+  font-size: 0.72rem;
+  color: rgba(196,168,130,0.7);
+  font-style: italic;
+  line-height: 1.4;
+}
+
+.lp-hero-wer-trenner {
+  width: 1px;
+  background: rgba(196,168,130,0.2);
+  align-self: stretch;
+  flex-shrink: 0;
+}
+
+/* Schritt-Anzeige */
+.lp-steps-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.lp-step-dot {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(196,168,130,0.2);
+  color: rgba(196,168,130,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.lp-step-dot.aktiv { background: #8b5e3c; border-color: #8b5e3c; color: #fff; }
+.lp-step-dot.fertig { background: #5c7a3e; border-color: #5c7a3e; color: #fff; cursor: pointer; }
+
+.lp-step-line {
+  flex: 1;
+  max-width: 50px;
+  height: 1px;
+  background: rgba(196,168,130,0.2);
+}
+
+.lp-step-line.aktiv { background: rgba(139,94,60,0.5); }
+
+.lp-step-label {
+  font-size: 0.72rem;
+  color: rgba(196,168,130,0.6);
+  margin-left: 0.5rem;
+  white-space: nowrap;
+}
+
+/* Hinweis kein Account */
+.lp-kein-account-hinweis {
+  font-size: 0.82rem;
+  color: rgba(196,168,130,0.75);
+  text-align: center;
+  line-height: 1.6;
+  max-width: 520px;
+  padding: 0.8rem 1rem;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(196,168,130,0.15);
+  border-radius: 8px;
+  font-style: italic;
+}
+
+/* Register-Box */
+.lp-register-box {
+  background: rgba(139,94,60,0.15);
+  border: 2px solid rgba(196,132,62,0.4);
+  border-radius: 12px;
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  text-align: center;
+  width: 100%;
+  max-width: 260px;
+}
+
+.lp-register-box-titel {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #f5efe6;
+  margin: 0;
+}
+
+.lp-register-box-text {
+  font-size: 0.78rem;
+  color: rgba(245,239,230,0.8);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.lp-register-box-hinweis {
+  font-size: 0.72rem;
+  color: rgba(196,168,130,0.7);
+  margin: 0;
+}
+
+.lp-register-box-hinweis a {
+  color: #d4a870;
+  text-decoration: underline;
+}
+
+/* Fertig-Erklärungs-Schritte */
+.lp-done-erklaerung {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  width: 100%;
+  max-width: 480px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(196,168,130,0.15);
+  border-radius: 12px;
+  padding: 1.2rem 1.4rem;
+}
+
+.lp-done-step {
+  display: flex;
+  gap: 0.8rem;
+  align-items: flex-start;
+  font-size: 0.85rem;
+  color: rgba(245,239,230,0.85);
+  line-height: 1.5;
+}
+
+.lp-done-step a { color: #d4a870; text-decoration: underline; }
+
 .lp-hero-pills {
   display: flex;
   flex-wrap: wrap;

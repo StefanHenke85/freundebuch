@@ -6,18 +6,18 @@ import { EVENT_TYPEN } from "../../data/eventFragen.js";
 import { THEMES, EVENT_DEFAULT_THEME } from "../../data/eventThemes.js";
 
 const ANLAESSE = [
-  { ...EVENT_TYPEN.find(e => e.id === 'geburtstag'), bild: '🎂', stimmung: 'Lass deine Gäste für immer in deiner Erinnerung bleiben.' },
-  { ...EVENT_TYPEN.find(e => e.id === 'hochzeit'),   bild: '💍', stimmung: 'Worte die ein Leben lang begleiten.' },
-  { ...EVENT_TYPEN.find(e => e.id === 'taufe'),      bild: '⛪', stimmung: 'Liebevolle Wünsche für den Lebensstart.' },
-  { ...EVENT_TYPEN.find(e => e.id === 'party'),      bild: '🎉', stimmung: 'Deine Feier, deine Geschichte.' },
-  { ...EVENT_TYPEN.find(e => e.id === 'tcg'),        bild: '🃏', stimmung: 'Dokumentiere deine Community.' },
-  { ...EVENT_TYPEN.find(e => e.id === 'eigener'),    bild: '📝', stimmung: 'Für jeden besonderen Moment.' },
+  { ...EVENT_TYPEN.find(e => e.id === 'geburtstag'), stimmung: 'Lass deine Gäste für immer in deiner Erinnerung bleiben.' },
+  { ...EVENT_TYPEN.find(e => e.id === 'hochzeit'),   stimmung: 'Worte die ein Leben lang begleiten.' },
+  { ...EVENT_TYPEN.find(e => e.id === 'taufe'),      stimmung: 'Liebevolle Wünsche für den Lebensstart.' },
+  { ...EVENT_TYPEN.find(e => e.id === 'party'),      stimmung: 'Deine Feier, deine Geschichte.' },
+  { ...EVENT_TYPEN.find(e => e.id === 'tcg'),        stimmung: 'Dokumentiere deine Community.' },
+  { ...EVENT_TYPEN.find(e => e.id === 'eigener'),    stimmung: 'Für jeden besonderen Moment.' },
 ];
 
 export default function Home() {
   const { token } = useAuth();
   const navigate = useNavigate();
-  const [phase, setPhase] = useState('hero'); // hero | event | theme | done
+  const [phase, setPhase] = useState('hero');
   const [event, setEvent] = useState(null);
   const [themeId, setThemeId] = useState(null);
   const [link, setLink] = useState('');
@@ -67,6 +67,7 @@ export default function Home() {
             <img src="/img/BraunesBuch.png" alt="" className="lp-hero-buch" />
             <div className="lp-hero-overlay" />
           </div>
+
           <div className="lp-hero-content">
             <p className="lp-hero-eyebrow">Digitales Gästebuch</p>
             <h1 className="lp-hero-titel">
@@ -74,23 +75,46 @@ export default function Home() {
               <em>für immer bleiben</em>
             </h1>
             <p className="lp-hero-sub">
-              Erstelle in Sekunden ein Gästebuch für dein Event.<br />
-              Deine Gäste tragen sich ein — ganz ohne App.
+              Erstelle ein Gästebuch für dein Event — deine Gäste tragen sich ein,
+              ganz ohne App oder Registrierung.
             </p>
-            <button className="lp-hero-cta" onClick={() => setPhase('event')}>
-              Jetzt Gästebuch erstellen
-            </button>
-            <div className="lp-hero-pills">
-              <span>🎂 Geburtstag</span>
-              <span>💍 Hochzeit</span>
-              <span>🎉 Party</span>
-              <span>🃏 TCG</span>
-              <span>⛪ Taufe</span>
+
+            {/* Wer-macht-was Box */}
+            <div className="lp-hero-wer">
+              <div className="lp-hero-wer-block lp-hero-wer-gastgeber">
+                <span className="lp-hero-wer-icon">🎉</span>
+                <div>
+                  <strong>Du organisierst ein Event?</strong>
+                  <p>Kurz registrieren, Gästebuch erstellen, Link teilen. Fertig!</p>
+                  <button className="lp-hero-cta" onClick={() => setPhase('event')}>
+                    Jetzt Gästebuch erstellen
+                  </button>
+                </div>
+              </div>
+              <div className="lp-hero-wer-trenner" />
+              <div className="lp-hero-wer-block lp-hero-wer-gast">
+                <span className="lp-hero-wer-icon">✏️</span>
+                <div>
+                  <strong>Du wurdest eingeladen?</strong>
+                  <p>Einfach den Link öffnen den du erhalten hast — kein Account nötig!</p>
+                  <span className="lp-hero-wer-hinweis">Den Link findest du in WhatsApp, der Einladung oder per E-Mail.</span>
+                </div>
+              </div>
             </div>
           </div>
+
+          <div className="lp-hero-pills">
+            <span>🎂 Geburtstag</span>
+            <span>💍 Hochzeit</span>
+            <span>🎉 Party</span>
+            <span>🃏 TCG Event</span>
+            <span>⛪ Taufe</span>
+            <span>📝 Eigener Event</span>
+          </div>
+
           <div className="lp-hero-footer">
             {token
-              ? <a href="/MeineEvents">Meine Events →</a>
+              ? <a href="/dashboard">Zum Dashboard →</a>
               : <a href="/login">Bereits registriert? Anmelden</a>
             }
             <span className="lp-hero-footer-sep">·</span>
@@ -106,16 +130,34 @@ export default function Home() {
         <div className="lp-auswahl">
           <button className="lp-back" onClick={() => setPhase('hero')}>← Zurück</button>
           <h2 className="lp-auswahl-titel">Was feierst du?</h2>
-          <p className="lp-auswahl-sub">Wähle deinen Anlass — wir passen alles automatisch an.</p>
+          <p className="lp-auswahl-sub">Wähle deinen Anlass — wir passen Fragen und Design automatisch an.</p>
+
+          {/* Schritt-Anzeige */}
+          <div className="lp-steps-bar">
+            <div className="lp-step-dot aktiv">1</div>
+            <div className="lp-step-line" />
+            <div className="lp-step-dot">2</div>
+            <div className="lp-step-line" />
+            <div className="lp-step-dot">{token ? '✓' : '3'}</div>
+            <span className="lp-step-label">{token ? 'Schritt 1 von 2' : 'Schritt 1 von 3'}</span>
+          </div>
+
           <div className="lp-event-grid">
             {ANLAESSE.map(ev => (
               <button key={ev.id} className="lp-event-card" onClick={() => waehleEvent(ev)}>
-                <span className="lp-event-card-emoji">{ev.bild}</span>
+                <span className="lp-event-card-emoji">{ev.emoji}</span>
                 <span className="lp-event-card-name">{ev.label}</span>
                 <span className="lp-event-card-sub">{ev.stimmung}</span>
               </button>
             ))}
           </div>
+
+          {!token && (
+            <p className="lp-kein-account-hinweis">
+              🔒 Du brauchst einen kostenlosen Account um ein Gästebuch zu erstellen.
+              Deine Gäste brauchen keinen Account — die öffnen einfach deinen Link.
+            </p>
+          )}
         </div>
       )}
 
@@ -123,20 +165,22 @@ export default function Home() {
       {phase === 'theme' && (
         <div className="lp-auswahl">
           <button className="lp-back" onClick={() => setPhase('event')}>← Zurück</button>
-          <h2 className="lp-auswahl-titel">
-            {event?.emoji} {event?.label} — Welches Design?
-          </h2>
+          <h2 className="lp-auswahl-titel">{event?.emoji} {event?.label} — Welches Design?</h2>
           <p className="lp-auswahl-sub">Das Design sehen deine Gäste wenn sie den Link öffnen.</p>
 
+          <div className="lp-steps-bar">
+            <div className="lp-step-dot fertig" onClick={() => setPhase('event')}>✓</div>
+            <div className="lp-step-line aktiv" />
+            <div className="lp-step-dot aktiv">2</div>
+            <div className="lp-step-line" />
+            <div className="lp-step-dot">{token ? '→' : '3'}</div>
+            <span className="lp-step-label">{token ? 'Schritt 2 von 2' : 'Schritt 2 von 3'}</span>
+          </div>
+
           <div className="lp-theme-layout">
-            {/* Theme-Auswahl */}
             <div className="lp-theme-grid">
               {THEMES.map(t => (
-                <button
-                  key={t.id}
-                  className={`lp-theme-card ${themeId === t.id ? 'aktiv' : ''}`}
-                  onClick={() => setThemeId(t.id)}
-                >
+                <button key={t.id} className={`lp-theme-card ${themeId === t.id ? 'aktiv' : ''}`} onClick={() => setThemeId(t.id)}>
                   <div className="lp-theme-swatch">
                     <div style={{ background: t.coverGradient, height: '40%', borderRadius: '4px 4px 0 0' }} />
                     <div style={{ background: t.seite, flex: 1, position: 'relative' }}>
@@ -150,14 +194,14 @@ export default function Home() {
               ))}
             </div>
 
-            {/* Vorschau */}
             <div className="lp-vorschau-panel">
+              {/* Buch */}
               <div className="lp-buch-mock" style={{ '--c': theme.coverGradient, '--s': theme.seite, '--r': theme.ruecken, '--l': theme.linie, '--a': theme.akzent, '--t': theme.coverText }}>
                 <div className="lp-buch-mock-ruecken" />
                 <div className="lp-buch-mock-block">
                   <div className="lp-buch-mock-cover">
                     <span style={{ fontSize: '2.2rem' }}>{event?.emoji}</span>
-                    <span style={{ fontFamily: 'Dancing Script, cursive', color: 'var(--t)', fontSize: '1rem', textAlign: 'center', lineHeight: 1.2 }}>{event?.label}</span>
+                    <span style={{ fontFamily: 'Dancing Script,cursive', color: 'var(--t)', fontSize: '1rem', textAlign: 'center', lineHeight: 1.2 }}>{event?.label}</span>
                   </div>
                   <div className="lp-buch-mock-page">
                     {[1,2,3,4].map(i => <div key={i} className="lp-buch-mock-linie" />)}
@@ -165,18 +209,28 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <p className="lp-vorschau-name" style={{ color: theme.akzent === '#f5efe6' ? '#c4a882' : theme.akzent }}>
-                {theme.emoji} <strong>{theme.label}</strong>
-              </p>
-              <button
-                className="lp-erstellen-btn"
-                style={{ background: theme.coverGradient }}
-                onClick={erstelle}
-                disabled={laden}
-              >
-                {laden ? '⏳ Erstelle…' : token ? `${event?.emoji} Link erstellen` : 'Kostenlos starten →'}
-              </button>
-              {!token && <p className="lp-erstellen-hinweis">Nur E-Mail + Passwort — 10 Sekunden</p>}
+              <p className="lp-vorschau-name" style={{ color: '#c4a882' }}>{theme.emoji} <strong>{theme.label}</strong></p>
+
+              {/* CTA mit Erklärung */}
+              {token ? (
+                <button className="lp-erstellen-btn" style={{ background: theme.coverGradient }} onClick={erstelle} disabled={laden}>
+                  {laden ? '⏳ Erstelle Link…' : `${event?.emoji} Link jetzt erstellen`}
+                </button>
+              ) : (
+                <div className="lp-register-box">
+                  <p className="lp-register-box-titel">Fast fertig! 🎉</p>
+                  <p className="lp-register-box-text">
+                    Erstelle jetzt kostenlos ein Konto um deinen Gästebuch-Link zu erhalten.
+                    <br /><strong>Nur E-Mail + Passwort — dauert 10 Sekunden.</strong>
+                  </p>
+                  <button className="lp-erstellen-btn" style={{ background: theme.coverGradient }} onClick={erstelle}>
+                    Kostenlos registrieren & Link erstellen
+                  </button>
+                  <p className="lp-register-box-hinweis">
+                    Bereits ein Konto? <a href="/login">Anmelden</a>
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -190,32 +244,36 @@ export default function Home() {
           <p className="lp-done-sub">{event?.label} · {theme.emoji} {theme.label}</p>
 
           <div className="lp-done-link-box">
-            <input
-              className="lp-done-input"
-              type="text"
-              value={link}
-              readOnly
-              onClick={e => e.target.select()}
-            />
-            <button
-              className="lp-done-copy"
-              style={{ background: theme.coverGradient }}
-              onClick={kopieren}
-            >
+            <input className="lp-done-input" type="text" value={link} readOnly onClick={e => e.target.select()} />
+            <button className="lp-done-copy" style={{ background: theme.coverGradient }} onClick={kopieren}>
               {kopiert ? '✓ Kopiert!' : '📋 Kopieren'}
             </button>
           </div>
 
-          <p className="lp-done-hinweis">
-            Schick diesen Link per WhatsApp, Instagram oder E-Mail an deine Gäste.<br />
-            <strong>Kein Account nötig</strong> — sie tragen sich direkt ein.
-          </p>
+          <div className="lp-done-erklaerung">
+            <div className="lp-done-step">
+              <span>1️⃣</span>
+              <span>Kopiere den Link oben</span>
+            </div>
+            <div className="lp-done-step">
+              <span>2️⃣</span>
+              <span>Schick ihn per WhatsApp, Instagram oder E-Mail an deine Gäste</span>
+            </div>
+            <div className="lp-done-step">
+              <span>3️⃣</span>
+              <span>Deine Gäste öffnen den Link und tragen sich ein — kein Account nötig!</span>
+            </div>
+            <div className="lp-done-step">
+              <span>4️⃣</span>
+              <span>Alle Einträge siehst du unter <a href="/MeineEvents">Meine Events</a></span>
+            </div>
+          </div>
 
           <div className="lp-done-actions">
             <button className="lp-done-neu" onClick={() => { setPhase('hero'); setEvent(null); setLink(''); }}>
               + Weiteres Gästebuch erstellen
             </button>
-            <a className="lp-done-events" href="/MeineEvents">Alle meine Events →</a>
+            <a className="lp-done-events" href="/dashboard">Zum Dashboard →</a>
           </div>
         </div>
       )}
