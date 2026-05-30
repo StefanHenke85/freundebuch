@@ -37,9 +37,12 @@ function App() {
   const location = useLocation();
   const hideHeaderRoutes = ['/', '/Home', '/login', '/register'];
 
+  const zeigeFooter = !hideHeaderRoutes.includes(location.pathname);
+
   return (
-    <>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       {!hideHeaderRoutes.includes(location.pathname) && <Header />}
+      <div style={{ flex: 1 }}>
       <Routes>
         <Route path="/Home" element={<Home />} />
         <Route path="/" element={<Home />} />
@@ -68,10 +71,11 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
-        <Route path="/chat" element={<Chat />} /> {/* Fügen Sie diese Zeile hinzu */}
+        <Route path="/chat" element={<Chat />} />
       </Routes>
-      <Footer />
-    </>
+      </div>
+      {zeigeFooter && <Footer />}
+    </div>
   );
 }
 

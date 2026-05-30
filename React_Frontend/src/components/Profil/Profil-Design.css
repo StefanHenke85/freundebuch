@@ -1,5 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Georgia&display=swap");
 
+/* Reset body für alle Seiten */
+body {
+  margin: 0;
+  padding: 0;
+  background: #f5efe6;
+  min-height: 100vh;
+}
+
 /* Profil Buch-Layout */
 .profil-buch-wrapper {
   display: flex;

@@ -1,25 +1,22 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   padding: 0;
-  overflow-y: hidden;
-  overflow-x: hidden;
+  background: #f5efe6;
+  font-family: 'Georgia', serif;
 }
 
-
-.App {
+/* App-Wrapper: Header oben, Footer unten, Inhalt dazwischen */
+#root {
   display: flex;
   flex-direction: column;
-  height: 100vh; /* Changed from max-height to height */
-  width: 100vw; /* Changed from max-width to width */
-  box-sizing: border-box;
+  min-height: 100vh;
 }
 
-
-.main-content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  flex-grow: 1; /* Added to make the main content area flexible */
-  box-sizing: border-box;
+/* Hauptinhalt wächst und schiebt Footer nach unten */
+#root > *:not(header):not(footer) {
+  flex: 1;
 }
