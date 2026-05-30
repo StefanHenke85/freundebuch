@@ -74,7 +74,7 @@ export default function Home() {
             <div className="lp-hero-topbar-rechts">
               {token ? (
                 <>
-                  <a href="/dashboard" className="lp-topbar-btn lp-topbar-btn-outline">🏠 Mein Dashboard</a>
+                  <a href="/dashboard" className="lp-topbar-btn lp-topbar-btn-outline">📋 Meine Events</a>
                   <button className="lp-topbar-btn lp-topbar-btn-outline" onClick={() => { logout(); navigate('/'); }}>Abmelden</button>
                 </>
               ) : (

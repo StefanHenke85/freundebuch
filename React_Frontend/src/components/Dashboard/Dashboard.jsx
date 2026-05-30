@@ -25,7 +25,7 @@ export default function Dashboard() {
     <div className="dash-root">
       {/* Top-Bar */}
       <header className="dash-header">
-        <span className="dash-logo">📖 Freundebuch</span>
+        <a href="/" className="dash-logo">📖 Freundebuch</a>
         <div className="dash-header-right">
           <span className="dash-username">👤 {user?.email?.split('@')[0] || user?.username}</span>
           <button className="dash-logout" onClick={handleLogout}>Abmelden</button>
@@ -46,7 +46,7 @@ export default function Dashboard() {
         {/* 3 Haupt-Aktionen */}
         <div className="dash-aktionen">
 
-          <button className="dash-karte dash-karte-primary" onClick={() => navigate('/?erstellen=1')}>
+          <button className="dash-karte dash-karte-primary" onClick={() => navigate('/')}>
             <span className="dash-karte-icon">✨</span>
             <span className="dash-karte-titel">Neues Gästebuch erstellen</span>
             <span className="dash-karte-sub">Event wählen, Design aussuchen, Link teilen</span>
